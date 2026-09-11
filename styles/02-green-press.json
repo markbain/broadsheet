@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+	"version": 3,
+	"title": "Green press",
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"slug": "paper",
+					"color": "#F1F2EC",
+					"name": "Paper"
+				},
+				{
+					"slug": "ink",
+					"color": "#101310",
+					"name": "Ink"
+				},
+				{
+					"slug": "red",
+					"color": "#0B7A3B",
+					"name": "Red"
+				},
+				{
+					"slug": "red-text",
+					"color": "#0A5F2E",
+					"name": "Red, text"
+				},
+				{
+					"slug": "blue",
+					"color": "#1F3AA8",
+					"name": "Blue"
+				},
+				{
+					"slug": "yellow",
+					"color": "#EFE04A",
+					"name": "Yellow"
+				},
+				{
+					"slug": "quiet",
+					"color": "#6A6F63",
+					"name": "Quiet"
+				},
+				{
+					"slug": "plate",
+					"color": "#DBDDD2",
+					"name": "Plate"
+				}
+			]
+		}
+	}
+}

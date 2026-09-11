@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+	"version": 3,
+	"title": "Red press",
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"slug": "paper",
+					"color": "#F4F2ED",
+					"name": "Paper"
+				},
+				{
+					"slug": "ink",
+					"color": "#14120F",
+					"name": "Ink"
+				},
+				{
+					"slug": "red",
+					"color": "#E8380D",
+					"name": "Red"
+				},
+				{
+					"slug": "red-text",
+					"color": "#C42B08",
+					"name": "Red, text"
+				},
+				{
+					"slug": "blue",
+					"color": "#2A3AE8",
+					"name": "Blue"
+				},
+				{
+					"slug": "yellow",
+					"color": "#F5C518",
+					"name": "Yellow"
+				},
+				{
+					"slug": "quiet",
+					"color": "#736C5D",
+					"name": "Quiet"
+				},
+				{
+					"slug": "plate",
+					"color": "#DDD9D1",
+					"name": "Plate"
+				}
+			]
+		}
+	}
+}
