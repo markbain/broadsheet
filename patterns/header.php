@@ -6,7 +6,7 @@
  * Categories: broadsheet_part
  * Block Types: core/template-part/header
  * Viewport width: 1400
- * Description: Wordmark, tagline, the heavy bar and the navigation row.
+ * Description: Wordmark, tagline, the heavy bar, and the navigation row with search.
  *
  * @package Broadsheet
  * @since Broadsheet 0.1.0
@@ -28,7 +28,13 @@
 	<hr class="wp-block-separator has-alpha-channel-opacity is-style-bar" style="margin-top:var(--wp--preset--spacing--20);margin-bottom:0"/>
 	<!-- /wp:separator -->
 
-	<!-- wp:navigation {"className":"s-nav","overlayMenu":"mobile","layout":{"type":"flex","justifyContent":"left"}} /-->
+	<!-- wp:group {"className":"s-navrow","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+	<div class="wp-block-group s-navrow">
+		<!-- wp:navigation {"className":"s-nav","overlayMenu":"mobile","layout":{"type":"flex","justifyContent":"left"}} /-->
+
+		<!-- wp:search {"label":"<?php esc_attr_e( 'Search', 'broadsheet' ); ?>","showLabel":false,"placeholder":"<?php esc_attr_e( 'Search', 'broadsheet' ); ?>","buttonText":"<?php esc_attr_e( 'Search', 'broadsheet' ); ?>","buttonPosition":"button-inside","buttonUseIcon":true,"className":"s-search"} /-->
+	</div>
+	<!-- /wp:group -->
 
 	<!-- wp:separator {"className":"is-style-hairline","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
 	<hr class="wp-block-separator has-alpha-channel-opacity is-style-hairline" style="margin-top:0;margin-bottom:0"/>
