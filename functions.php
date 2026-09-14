@@ -1,18 +1,18 @@
 <?php
 /**
- * Slipstream functions and definitions.
+ * Slipsheet functions and definitions.
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package Slipstream
- * @since Slipstream 0.1.0
+ * @package Slipsheet
+ * @since Slipsheet 0.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'slipstream_enqueue_styles' ) ) :
+if ( ! function_exists( 'slipsheet_enqueue_styles' ) ) :
 	/**
 	 * Enqueues the theme stylesheets on the front.
 	 *
@@ -24,50 +24,50 @@ if ( ! function_exists( 'slipstream_enqueue_styles' ) ) :
 	 * load order: reset / base / layout (layered) first, components (unlayered)
 	 * second. See README.md, "The layer contract".
 	 *
-	 * @since Slipstream 0.1.0
+	 * @since Slipsheet 0.1.0
 	 *
 	 * @return void
 	 */
-	function slipstream_enqueue_styles() {
+	function slipsheet_enqueue_styles() {
 		$version = wp_get_theme()->get( 'Version' );
 
 		wp_enqueue_style(
-			'slipstream-foundation',
+			'slipsheet-foundation',
 			get_parent_theme_file_uri( 'assets/css/foundation.css' ),
 			array(),
 			$version
 		);
 		wp_style_add_data(
-			'slipstream-foundation',
+			'slipsheet-foundation',
 			'path',
 			get_parent_theme_file_path( 'assets/css/foundation.css' )
 		);
 
 		wp_enqueue_style(
-			'slipstream-style',
+			'slipsheet-style',
 			get_parent_theme_file_uri( 'style.css' ),
-			array( 'slipstream-foundation' ),
+			array( 'slipsheet-foundation' ),
 			$version
 		);
 		wp_style_add_data(
-			'slipstream-style',
+			'slipsheet-style',
 			'path',
 			get_parent_theme_file_path( 'style.css' )
 		);
 	}
 endif;
-add_action( 'wp_enqueue_scripts', 'slipstream_enqueue_styles' );
+add_action( 'wp_enqueue_scripts', 'slipsheet_enqueue_styles' );
 
-if ( ! function_exists( 'slipstream_editor_style' ) ) :
+if ( ! function_exists( 'slipsheet_editor_style' ) ) :
 	/**
 	 * Enqueues the same two stylesheets in the editors, so what an editor sees
 	 * matches the front end.
 	 *
-	 * @since Slipstream 0.1.0
+	 * @since Slipsheet 0.1.0
 	 *
 	 * @return void
 	 */
-	function slipstream_editor_style() {
+	function slipsheet_editor_style() {
 		add_editor_style(
 			array(
 				'assets/css/foundation.css',
@@ -76,37 +76,37 @@ if ( ! function_exists( 'slipstream_editor_style' ) ) :
 		);
 	}
 endif;
-add_action( 'after_setup_theme', 'slipstream_editor_style' );
+add_action( 'after_setup_theme', 'slipsheet_editor_style' );
 
-if ( ! function_exists( 'slipstream_pattern_categories' ) ) :
+if ( ! function_exists( 'slipsheet_pattern_categories' ) ) :
 	/**
 	 * Registers pattern categories.
 	 *
-	 * @since Slipstream 0.1.0
+	 * @since Slipsheet 0.1.0
 	 *
 	 * @return void
 	 */
-	function slipstream_pattern_categories() {
+	function slipsheet_pattern_categories() {
 		register_block_pattern_category(
-			'slipstream_section',
+			'slipsheet_section',
 			array(
-				'label'       => __( 'Slipstream sections', 'slipstream' ),
-				'description' => __( 'Bands, hairline grids, ledgers and pauses.', 'slipstream' ),
+				'label'       => __( 'Slipsheet sections', 'slipsheet' ),
+				'description' => __( 'Bands, hairline grids, ledgers and pauses.', 'slipsheet' ),
 			)
 		);
 
 		register_block_pattern_category(
-			'slipstream_part',
+			'slipsheet_part',
 			array(
-				'label'       => __( 'Slipstream parts', 'slipstream' ),
-				'description' => __( 'Small pieces: the wordmark, a bracket link, a photograph plate.', 'slipstream' ),
+				'label'       => __( 'Slipsheet parts', 'slipsheet' ),
+				'description' => __( 'Small pieces: the wordmark, a bracket link, a photograph plate.', 'slipsheet' ),
 			)
 		);
 	}
 endif;
-add_action( 'init', 'slipstream_pattern_categories' );
+add_action( 'init', 'slipsheet_pattern_categories' );
 
-if ( ! function_exists( 'slipstream_remove_core_patterns' ) ) :
+if ( ! function_exists( 'slipsheet_remove_core_patterns' ) ) :
 	/**
 	 * Hides the bundled core patterns.
 	 *
@@ -114,17 +114,17 @@ if ( ! function_exists( 'slipstream_remove_core_patterns' ) ) :
 	 * in rounded cards, gradients and shadows the design does not have. Comment
 	 * out the add_action below if a site needs them.
 	 *
-	 * @since Slipstream 0.1.0
+	 * @since Slipsheet 0.1.0
 	 *
 	 * @return void
 	 */
-	function slipstream_remove_core_patterns() {
+	function slipsheet_remove_core_patterns() {
 		remove_theme_support( 'core-block-patterns' );
 	}
 endif;
-add_action( 'after_setup_theme', 'slipstream_remove_core_patterns' );
+add_action( 'after_setup_theme', 'slipsheet_remove_core_patterns' );
 
-if ( ! function_exists( 'slipstream_block_styles' ) ) :
+if ( ! function_exists( 'slipsheet_block_styles' ) ) :
 	/**
 	 * Registers custom block styles.
 	 *
@@ -132,15 +132,15 @@ if ( ! function_exists( 'slipstream_block_styles' ) ) :
 	 * CSS. The rationing rule is one loud ink per band, so they are mutually
 	 * exclusive by design: pick one per section.
 	 *
-	 * @since Slipstream 0.1.0
+	 * @since Slipsheet 0.1.0
 	 *
 	 * @return void
 	 */
-	function slipstream_block_styles() {
+	function slipsheet_block_styles() {
 		$inks = array(
-			'ink-red'   => __( 'Ink: red', 'slipstream' ),
-			'ink-blue'  => __( 'Ink: blue', 'slipstream' ),
-			'ink-black' => __( 'Ink: black', 'slipstream' ),
+			'ink-red'   => __( 'Ink: red', 'slipsheet' ),
+			'ink-blue'  => __( 'Ink: blue', 'slipsheet' ),
+			'ink-black' => __( 'Ink: black', 'slipsheet' ),
 		);
 
 		foreach ( array( 'core/group', 'core/columns' ) as $block ) {
@@ -160,14 +160,14 @@ if ( ! function_exists( 'slipstream_block_styles' ) ) :
 			'core/separator',
 			array(
 				'name'  => 'bar',
-				'label' => __( 'Bar', 'slipstream' ),
+				'label' => __( 'Bar', 'slipsheet' ),
 			)
 		);
 		register_block_style(
 			'core/separator',
 			array(
 				'name'  => 'hairline',
-				'label' => __( 'Hairline', 'slipstream' ),
+				'label' => __( 'Hairline', 'slipsheet' ),
 			)
 		);
 
@@ -176,7 +176,7 @@ if ( ! function_exists( 'slipstream_block_styles' ) ) :
 			'core/list',
 			array(
 				'name'         => 'ruled-list',
-				'label'        => __( 'Ruled', 'slipstream' ),
+				'label'        => __( 'Ruled', 'slipsheet' ),
 				'inline_style' => '
 				ul.is-style-ruled-list {
 					list-style: none;
@@ -192,4 +192,4 @@ if ( ! function_exists( 'slipstream_block_styles' ) ) :
 		);
 	}
 endif;
-add_action( 'init', 'slipstream_block_styles' );
+add_action( 'init', 'slipsheet_block_styles' );

@@ -1,6 +1,6 @@
 /*
-Theme Name: Slipstream
-Theme URI: https://example.com/slipstream
+Theme Name: Slipsheet
+Theme URI: https://example.com/slipsheet
 Author: Bain Design
 Author URI: https://bain.design
 Description: A poster-on-a-wall block theme. Flat ink on paper, a visible hairline grid, and three signature moves: the slip, the bracket, and one ink per band. Built to the CSS foundation spec in bain-theme-factory.
@@ -10,7 +10,7 @@ Requires PHP: 7.4
 Version: 0.1.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: slipstream
+Text Domain: slipsheet
 Domain Path: /languages
 Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
 */
@@ -66,10 +66,10 @@ Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
 
    Markup (see the wordmark pattern):
      <span class="s-slip u-disp">
-       <span class="s-slip__sizer">Slipstream</span>
-       <span class="s-slip__a">Slipstream</span>
-       <span class="s-slip__b">Slipstream</span>
-       <span class="s-slip__c">Slipstream</span>
+       <span class="s-slip__sizer">Slipsheet</span>
+       <span class="s-slip__a">Slipsheet</span>
+       <span class="s-slip__b">Slipsheet</span>
+       <span class="s-slip__c">Slipsheet</span>
      </span>
 
    Below about 22px the three strips merge and the word stops reading. Use

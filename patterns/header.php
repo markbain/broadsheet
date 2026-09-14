@@ -1,15 +1,15 @@
 <?php
 /**
  * Title: Header
- * Slug: slipstream/header
+ * Slug: slipsheet/header
  * Keywords: header, masthead, wordmark, navigation
- * Categories: slipstream_part
+ * Categories: slipsheet_part
  * Block Types: core/template-part/header
  * Viewport width: 1400
  * Description: Wordmark, tagline, the heavy bar and the navigation row.
  *
- * @package Slipstream
- * @since Slipstream 0.1.0
+ * @package Slipsheet
+ * @since Slipsheet 0.1.0
  */
 
 ?>
@@ -18,7 +18,7 @@
 
 	<!-- wp:group {"className":"s-masthead","layout":{"type":"default"}} -->
 	<div class="wp-block-group s-masthead">
-		<!-- wp:pattern {"slug":"slipstream/wordmark"} /-->
+		<!-- wp:pattern {"slug":"slipsheet/wordmark"} /-->
 
 		<!-- wp:site-tagline {"textAlign":"right","className":"u-lab s-tagline"} /-->
 	</div>
