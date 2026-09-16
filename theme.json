@@ -226,6 +226,11 @@
 					"slug": "70",
 					"name": "6 - Pause",
 					"size": "clamp(6.875rem, 15vw, 15.625rem)"
+				},
+				{
+					"slug": "80",
+					"name": "7 - Silence",
+					"size": "clamp(9rem, 20vw, 20rem)"
 				}
 			]
 		},

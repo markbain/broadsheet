@@ -482,6 +482,15 @@ Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
    Where a core block needs to sit inside one of the components above.
    -------------------------------------------------------------------------- */
 
+/* A block emitted with no wrapper element of its own - a raw wp:html block's
+   content is the clearest example - is not a block box, so the constrained
+   layout's per-child max-width + auto-margins (which only centre a block
+   box) do nothing to it: it renders flush at the container's edge instead
+   of inside the reading column, out of step with every real block around
+   it. Force every direct child into a block box so the layout it already
+   receives actually applies. Harmless on children that are already block. */
+.wp-block-post-content > * { display: block; }
+
 /* The query loop's post template is the grid itself, not a wrapper round one. */
 .wp-block-post-template.s-grid { display: grid; }
 .wp-block-post-template.s-ledger { display: block; }
