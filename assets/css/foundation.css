@@ -123,9 +123,11 @@
   }
 }
 
-/* Allow full-width blocks (like galleries) to break out of constrained post-content */
-.wp-block-post-content > .alignfull,
-.wp-block-post-content > .alignwide {
+/* Allow full-bleed blocks (like galleries set to alignfull) to break out of
+   constrained post-content. alignwide is deliberately excluded - it already
+   resolves against theme.json's wideSize via WordPress's own layout support,
+   and must not bleed to the viewport edge like alignfull. */
+.wp-block-post-content > .alignfull {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
