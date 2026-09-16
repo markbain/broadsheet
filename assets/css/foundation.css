@@ -160,3 +160,18 @@
     margin-right: auto;
   }
 }
+
+/* Text overflow: prevent long unbroken strings breaking mobile layout */
+.wp-block-post-content,
+.wp-block-post-content p,
+.wp-block-post-content li,
+.wp-block-post-content a {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Extra safety for code and pre blocks */
+code, pre { 
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
