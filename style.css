@@ -131,7 +131,7 @@ Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
   inset: clamp(10px, 1.8vw, 22px) clamp(10px, 2vw, 30px);
   pointer-events: none;
   background-color: currentColor;
-  --crop: clamp(34px, 5vw, 72px);
+  --crop: clamp(28px, 3.5vw, 48px);
   -webkit-mask:
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M23%201H1V23%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%223%22%2F%3E%3C%2Fsvg%3E") no-repeat left top / var(--crop) var(--crop),
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M1%201H23V23%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%223%22%2F%3E%3C%2Fsvg%3E") no-repeat right top / var(--crop) var(--crop),
@@ -425,7 +425,7 @@ Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
 @media (max-width: 1120px) {
   .s-grid--hero { grid-template-columns: minmax(0, 1fr); }
   .s-grid--hero .s-hero-copy { order: 1; }
-  .s-grid--hero .s-plate { order: 2; min-height: clamp(220px, 34vw, 340px); }
+  .s-grid--hero .s-plate { order: 2; min-height: clamp(160px, 28vw, 300px); }
   .s-grid--hero .s-call { order: 3; }
   .s-grid--feature { grid-template-columns: minmax(0, 1fr); }
   .s-grid--feature .s-plate { min-height: clamp(220px, 34vw, 330px); }
