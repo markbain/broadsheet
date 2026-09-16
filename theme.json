@@ -387,6 +387,16 @@
 					"fontWeight": "900",
 					"textTransform": "uppercase"
 				}
+			},
+			"core/gallery": {
+				"spacing": {
+					"margin": {
+						"top": "0",
+						"bottom": "0",
+						"left": "0",
+						"right": "0"
+					}
+				}
 			}
 		}
 	},
