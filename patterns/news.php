@@ -28,7 +28,7 @@
 		<!-- wp:post-template {"className":"s-grid s-grid--4","layout":{"type":"default"}} -->
 			<!-- wp:group {"className":"s-cell--tight","layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
 			<div class="wp-block-group s-cell--tight">
-				<!-- wp:post-date {"className":"u-lab u-quiet","format":"j F Y"} /-->
+				<!-- wp:post-date {"className":"u-lab u-quiet","format":"j F Y","isLink":true} /-->
 				<!-- wp:post-title {"isLink":true,"fontSize":"d-4"} /-->
 				<!-- wp:post-excerpt {"excerptLength":22,"showMoreOnNewLine":false} /-->
 			</div>
