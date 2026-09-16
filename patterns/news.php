@@ -1,14 +1,14 @@
 <?php
 /**
  * Title: News, four up
- * Slug: slipstream/news
+ * Slug: broadsheet/news
  * Keywords: posts, news, grid, query
- * Categories: slipstream_section
+ * Categories: broadsheet_section
  * Viewport width: 1400
  * Description: Latest posts in a four-column hairline grid that drops to two, then one.
  *
- * @package Slipstream
- * @since Slipstream 0.1.0
+ * @package Broadsheet
+ * @since Broadsheet 0.1.0
  */
 
 ?>
@@ -17,9 +17,9 @@
 	<!-- wp:group {"className":"s-head","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
 	<div class="wp-block-group s-head">
 		<!-- wp:heading {"fontSize":"d-2"} -->
-		<h2 class="wp-block-heading has-d-2-font-size"><?php esc_html_e( 'News', 'slipstream' ); ?></h2>
+		<h2 class="wp-block-heading has-d-2-font-size"><?php esc_html_e( 'News', 'broadsheet' ); ?></h2>
 		<!-- /wp:heading -->
-		<!-- wp:pattern {"slug":"slipstream/link"} /-->
+		<!-- wp:pattern {"slug":"broadsheet/link"} /-->
 	</div>
 	<!-- /wp:group -->
 
@@ -36,7 +36,7 @@
 		<!-- /wp:post-template -->
 
 		<!-- wp:query-no-results -->
-			<!-- wp:pattern {"slug":"slipstream/no-results"} /-->
+			<!-- wp:pattern {"slug":"broadsheet/no-results"} /-->
 		<!-- /wp:query-no-results -->
 	</div>
 	<!-- /wp:query -->

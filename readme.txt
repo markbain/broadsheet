@@ -1,4 +1,4 @@
-=== Slipstream ===
+=== Broadsheet ===
 Contributors: bain
 Requires at least: 6.6
 Tested up to: 7.1
@@ -32,8 +32,8 @@ Martian Mono: Copyright Roman Shamin, Evil Martians.
 
 == Copyright ==
 
-Slipstream WordPress Theme, (C) 2026 Bain Design.
-Slipstream is distributed under the terms of the GNU GPL.
+Broadsheet WordPress Theme, (C) 2026 Bain Design.
+Broadsheet is distributed under the terms of the GNU GPL.
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software

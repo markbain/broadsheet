@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Slipstream - foundation
+   Broadsheet - foundation
    Reset, base and layout. Layered.
    Tokens are NOT defined here: theme.json is the single source of truth and
    emits them as --wp--preset--* / --wp--custom--*. This file only aliases
