@@ -193,3 +193,54 @@ if ( ! function_exists( 'broadsheet_block_styles' ) ) :
 	}
 endif;
 add_action( 'init', 'broadsheet_block_styles' );
+
+if ( ! function_exists( 'broadsheet_paginated_post_links' ) ) :
+	/**
+	 * Adds working next/previous links to a paginated single post.
+	 *
+	 * WordPress splits a post's content on the <!--nextpage--> Quick Tag into
+	 * $numpages regardless of how it was authored, but the link markup itself
+	 * is only auto-appended by `core/post-content`'s own render callback, and
+	 * only when it detects the newer Page Break BLOCK
+	 * (`has_block( 'core/nextpage' )`). Content written with the classic
+	 * Quick Tag - the classic editor, or imported content such as the Theme
+	 * Unit Test data - never satisfies that check, so a genuinely paginated
+	 * post renders truncated to its first page with no way to reach the
+	 * rest. Add the links unconditionally instead, styled like the theme's
+	 * other plain link rows (post-navigation-link uses the same `.s-link` /
+	 * `.u-lab` pair in templates/single.html).
+	 *
+	 * @since Broadsheet 0.1.1
+	 *
+	 * @param string $content The current page's post content.
+	 * @return string
+	 */
+	function broadsheet_paginated_post_links( $content ) {
+		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
+			return $content;
+		}
+
+		// core/post-content already appends these when the post was authored
+		// with the newer Page Break block - don't double them up.
+		if ( has_block( 'core/nextpage' ) ) {
+			return $content;
+		}
+
+		$links = wp_link_pages(
+			array(
+				'echo'             => false,
+				'next_or_number'   => 'next',
+				'nextpagelink'     => __( 'Next page', 'broadsheet' ),
+				'previouspagelink' => __( 'Previous page', 'broadsheet' ),
+				'before'           => '<div class="wp-block-group s-link" style="display:flex;justify-content:space-between;gap:20px">',
+				'link_before'      => '<span class="u-lab">',
+				'link_after'       => '</span>',
+				'after'            => '</div>',
+			)
+		);
+
+		return $content . $links;
+	}
+endif;
+add_filter( 'the_content', 'broadsheet_paginated_post_links' );
+
