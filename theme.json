@@ -297,32 +297,32 @@
 			},
 			"h1": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--d-1)"
+					"fontSize": "var(--wp--preset--font-size--d-xl)"
 				}
 			},
 			"h2": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--d-2)"
+					"fontSize": "var(--wp--preset--font-size--d-1)"
 				}
 			},
 			"h3": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--d-3)"
+					"fontSize": "var(--wp--preset--font-size--d-2)"
 				}
 			},
 			"h4": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--d-4)"
+					"fontSize": "var(--wp--preset--font-size--d-3)"
 				}
 			},
 			"h5": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--body)"
+					"fontSize": "var(--wp--preset--font-size--d-4)"
 				}
 			},
 			"h6": {
 				"typography": {
-					"fontSize": "var(--wp--preset--font-size--label)"
+					"fontSize": "var(--wp--preset--font-size--body)"
 				}
 			},
 			"button": {
