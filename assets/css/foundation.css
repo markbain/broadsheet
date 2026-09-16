@@ -131,3 +131,32 @@
   margin-right: calc(50% - 50vw);
   max-width: 100vw;
 }
+
+/* Image containment: keep aligned images within text grid */
+.wp-block-post-content .wp-block-image.alignleft,
+.wp-block-post-content .wp-block-image.alignright {
+  max-width: 100%;
+  width: auto;
+}
+
+/* Captioned images should also be contained */
+.wp-block-post-content figure.wp-block-image {
+  max-width: 100%;
+}
+
+/* At small widths, reduce aligned image width to prevent overflow */
+@media (max-width: 640px) {
+  .wp-block-post-content .wp-block-image.alignleft,
+  .wp-block-post-content .wp-block-image.alignright {
+    max-width: calc(100% - 20px);
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    clear: both;
+  }
+  
+  .wp-block-post-content figure.wp-block-image {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
