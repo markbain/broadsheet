@@ -210,7 +210,7 @@ if ( ! function_exists( 'broadsheet_paginated_post_links' ) ) :
 	 * other plain link rows (post-navigation-link uses the same `.s-link` /
 	 * `.u-lab` pair in templates/single.html).
 	 *
-	 * @since Broadsheet 0.1.1
+	 * @since Broadsheet 0.1.0
 	 *
 	 * @param string $content The current page's post content.
 	 * @return string
@@ -244,3 +244,23 @@ if ( ! function_exists( 'broadsheet_paginated_post_links' ) ) :
 endif;
 add_filter( 'the_content', 'broadsheet_paginated_post_links' );
 
+
+if ( ! function_exists( 'broadsheet_caption_width' ) ) :
+	/**
+	 * Drops the inline width from classic [caption] figures.
+	 *
+	 * img_caption_shortcode() writes style="width: Npx" from the image's width.
+	 * An inline width beats every stylesheet, and the cap that would rein it in
+	 * - the constrained layout's content size - is core CSS, so a caption wider
+	 * than the column (or the phone) pushes the page sideways. Without it the
+	 * figure sizes like a block image: capped by the column, then by its parent.
+	 *
+	 * @since Broadsheet 0.1.0
+	 *
+	 * @return int Zero, which tells core to omit the style attribute.
+	 */
+	function broadsheet_caption_width() {
+		return 0;
+	}
+endif;
+add_filter( 'img_caption_shortcode_width', 'broadsheet_caption_width' );
