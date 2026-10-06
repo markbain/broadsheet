@@ -1,4 +1,4 @@
-# Slipstream
+# Broadsheet
 
 A block theme. Poster-on-a-wall: flat ink on paper, a visible hairline grid,
 extreme contrast between display and body type, and deliberate empty stretches
@@ -10,7 +10,7 @@ Version 0.1.0. Requires WordPress 6.6 or later: theme.json version 3, the
 
 Built to the conventions of Twenty Twenty-Five, the current default theme -
 which is a pure block theme, not a hybrid: its only PHP file is
-`functions.php`, and every template is HTML. Slipstream is the same shape.
+`functions.php`, and every template is HTML. Broadsheet is the same shape.
 
 ## The three signature moves
 
@@ -122,9 +122,8 @@ Self-hosted, latin subset, woff2 only:
 - **Martian Mono** (300, 400, 600) - Roman Shamin, Evil Martians
 
 Both are under the SIL Open Font License 1.1, confirmed from the `google/fonts`
-repository metadata. **Before shipping, add the upstream `OFL.txt` for each
-family to `assets/fonts/`** - the licence requires the notice to travel with
-the files.
+repository metadata and the foundries' own repos. The upstream `OFL.txt` for
+each family travels with the files in `assets/fonts/`, as the licence requires.
 
 One thing to watch: Google Fonts has since consolidated "Big Shoulders Display"
 into a family listed simply as **Big Shoulders**. The `css2` API still serves

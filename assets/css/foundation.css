@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Slipstream - foundation
+   Broadsheet - foundation
    Reset, base and layout. Layered.
    Tokens are NOT defined here: theme.json is the single source of truth and
    emits them as --wp--preset--* / --wp--custom--*. This file only aliases
@@ -55,6 +55,14 @@
   body { margin: 0; overflow-x: clip; }
   img, svg, video { max-width: 100%; height: auto; }
   svg { height: revert-layer; }
+  /* Classic content carries fixed widths: oEmbed iframes a width attribute,
+     and pre never wraps. */
+  iframe, embed, object { max-width: 100%; }
+  pre { max-width: 100%; overflow-x: auto; }
+  /* [caption] loses its inline width in functions.php. Size the figure to its
+     image instead; the caption text wraps to that width rather than setting it. */
+  .wp-caption { width: fit-content; max-width: 100%; }
+  .wp-caption-text { contain: inline-size; }
   button, input, select, textarea { font: inherit; color: inherit; }
 
   /* The design has no depth. Nothing rounds, nothing floats. */
@@ -121,4 +129,59 @@
     display: grid;
     place-items: center;
   }
+}
+
+/* Allow full-bleed blocks (like galleries set to alignfull) to break out of
+   constrained post-content. alignwide is deliberately excluded - it already
+   resolves against theme.json's wideSize via WordPress's own layout support,
+   and must not bleed to the viewport edge like alignfull. */
+.wp-block-post-content > .alignfull {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  max-width: 100vw;
+}
+
+/* Image containment: keep aligned images within text grid */
+.wp-block-post-content .wp-block-image.alignleft,
+.wp-block-post-content .wp-block-image.alignright {
+  max-width: 100%;
+  width: auto;
+}
+
+/* Captioned images should also be contained */
+.wp-block-post-content figure.wp-block-image {
+  max-width: 100%;
+}
+
+/* At small widths, reduce aligned image width to prevent overflow */
+@media (max-width: 640px) {
+  .wp-block-post-content .wp-block-image.alignleft,
+  .wp-block-post-content .wp-block-image.alignright {
+    max-width: calc(100% - 20px);
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+    clear: both;
+  }
+  
+  .wp-block-post-content figure.wp-block-image {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Text overflow: prevent long unbroken strings breaking mobile layout */
+.wp-block-post-content,
+.wp-block-post-content p,
+.wp-block-post-content li,
+.wp-block-post-content a {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* Extra safety for code and pre blocks */
+code, pre { 
+  word-break: break-all;
+  overflow-wrap: anywhere;
 }

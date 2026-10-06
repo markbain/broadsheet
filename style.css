@@ -1,6 +1,6 @@
 /*
-Theme Name: Slipstream
-Theme URI: https://example.com/slipstream
+Theme Name: Broadsheet
+Theme URI: https://example.com/broadsheet
 Author: Bain Design
 Author URI: https://bain.design
 Description: A poster-on-a-wall block theme. Flat ink on paper, a visible hairline grid, and three signature moves: the slip, the bracket, and one ink per band. Built to the CSS foundation spec in bain-theme-factory.
@@ -10,9 +10,9 @@ Requires PHP: 7.4
 Version: 0.1.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: slipstream
+Text Domain: broadsheet
 Domain Path: /languages
-Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
+Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variations, custom-colors, custom-menu, news
 */
 
 /* ==========================================================================
@@ -66,10 +66,10 @@ Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
 
    Markup (see the wordmark pattern):
      <span class="s-slip u-disp">
-       <span class="s-slip__sizer">Slipstream</span>
-       <span class="s-slip__a">Slipstream</span>
-       <span class="s-slip__b">Slipstream</span>
-       <span class="s-slip__c">Slipstream</span>
+       <span class="s-slip__sizer">Broadsheet</span>
+       <span class="s-slip__a">Broadsheet</span>
+       <span class="s-slip__b">Broadsheet</span>
+       <span class="s-slip__c">Broadsheet</span>
      </span>
 
    Below about 22px the three strips merge and the word stops reading. Use
@@ -131,7 +131,7 @@ Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
   inset: clamp(10px, 1.8vw, 22px) clamp(10px, 2vw, 30px);
   pointer-events: none;
   background-color: currentColor;
-  --crop: clamp(34px, 5vw, 72px);
+  --crop: clamp(28px, 3.5vw, 48px);
   -webkit-mask:
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M23%201H1V23%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%223%22%2F%3E%3C%2Fsvg%3E") no-repeat left top / var(--crop) var(--crop),
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M1%201H23V23%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%223%22%2F%3E%3C%2Fsvg%3E") no-repeat right top / var(--crop) var(--crop),
@@ -316,6 +316,41 @@ Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
 .s-nav .wp-block-navigation__responsive-container-open,
 .s-nav .wp-block-navigation__responsive-container-close { color: var(--ink); }
 
+/* The navigation row: menu left, search right, on the same hairline. */
+.s-navrow { gap: 24px; align-items: center; padding-block: 10px; }
+.s-navrow .s-nav { padding-block: 4px; }
+.s-navrow > * { margin-block: 0; }
+
+/* Header search: set like the nav labels, a hairline box, the button an ink
+   block that turns red on hover like every other button. */
+.s-search { flex: 0 1 260px; min-inline-size: 0; }
+.s-search .wp-block-search__inside-wrapper {
+  border: var(--hair) solid var(--ink);
+  border-radius: 0;
+  padding: 0;
+  background: var(--paper);
+}
+.s-search .wp-block-search__input {
+  border: none;
+  padding: 10px 12px;
+  min-inline-size: 0;
+  font-family: var(--mono);
+  font-size: var(--wp--preset--font-size--label);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.s-search .wp-block-search__input::placeholder { color: var(--quiet); opacity: 1; }
+.s-search .wp-block-search__button {
+  margin: 0;
+  padding-inline: 12px;
+  min-inline-size: 44px;                     /* 44px hit target */
+  background: var(--ink);
+  color: var(--paper);
+}
+.s-search .wp-block-search__button:hover { background: var(--red); }
+.s-search .wp-block-search__button svg { fill: currentColor; }
+
 /* --------------------------------------------------------------------------
    Footer.
    The columns carry the hairline, so the gap between them is zero and the rule
@@ -390,7 +425,7 @@ Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
 @media (max-width: 1120px) {
   .s-grid--hero { grid-template-columns: minmax(0, 1fr); }
   .s-grid--hero .s-hero-copy { order: 1; }
-  .s-grid--hero .s-plate { order: 2; min-height: clamp(220px, 34vw, 340px); }
+  .s-grid--hero .s-plate { order: 2; min-height: clamp(160px, 28vw, 300px); }
   .s-grid--hero .s-call { order: 3; }
   .s-grid--feature { grid-template-columns: minmax(0, 1fr); }
   .s-grid--feature .s-plate { min-height: clamp(220px, 34vw, 330px); }
@@ -424,6 +459,7 @@ Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
 @media (max-width: 760px) {
   .s-masthead { align-items: center; }
   .s-masthead .s-tagline { display: none; }
+  .s-search { flex-basis: 180px; }
 }
 
 @media (max-width: 620px) {
@@ -445,6 +481,15 @@ Tags: block-theme, full-site-editing, editorial, one-column, wide-blocks
    Block plumbing.
    Where a core block needs to sit inside one of the components above.
    -------------------------------------------------------------------------- */
+
+/* A block emitted with no wrapper element of its own - a raw wp:html block's
+   content is the clearest example - is not a block box, so the constrained
+   layout's per-child max-width + auto-margins (which only centre a block
+   box) do nothing to it: it renders flush at the container's edge instead
+   of inside the reading column, out of step with every real block around
+   it. Force every direct child into a block box so the layout it already
+   receives actually applies. Harmless on children that are already block. */
+.wp-block-post-content > * { display: block; }
 
 /* The query loop's post template is the grid itself, not a wrapper round one. */
 .wp-block-post-template.s-grid { display: grid; }
