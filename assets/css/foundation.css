@@ -38,6 +38,7 @@
 
   --gut:   var(--wp--custom--gutter);
   --hair:  var(--wp--custom--hairline);
+  --bar:   clamp(5px, 0.5vw, 7px);  /* the heavy rule: header, footer, bar separators */
 
   /*
     Section ink. Reset per band; never two loud inks in one section.

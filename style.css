@@ -368,10 +368,9 @@ ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li 
   background: var(--contrast);
   opacity: 1;
   width: 100%;
-  max-width: none;
   margin-block: 0;
 }
-.wp-block-separator.is-style-bar { height: clamp(5px, 0.5vw, 7px); }
+.wp-block-separator.is-style-bar { height: var(--bar); }
 .wp-block-separator.is-style-hairline { height: var(--hair); }
 
 /* --------------------------------------------------------------------------
@@ -379,6 +378,8 @@ ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li 
    -------------------------------------------------------------------------- */
 
 .s-masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+/* The nav row sits straight under the heavy bar; its own padding is the gap. */
+header > .s-navrow { margin-block-start: 0; }
 .s-bar { height: clamp(5px, 0.5vw, 7px); background: var(--contrast); }
 .s-hair { height: var(--hair); background: var(--contrast); }
 
@@ -450,21 +451,77 @@ ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li 
 
 /* --------------------------------------------------------------------------
    Footer.
-   The columns carry the hairline, so the gap between them is zero and the rule
-   is a border on each column after the brand.
+   The footer opens on the heavy rule, like the header. One hairline divides
+   the brand from the menus, joining the heavy rule above and the hairline
+   above the colophon below; the menu columns themselves are not ruled apart.
+   The divider is drawn past the column by spacing 40 at each end - the
+   columns' top padding and the separator's top margin - so it meets both.
    -------------------------------------------------------------------------- */
 
-.s-footer__cols { gap: 0; }
-.s-footer__brand { padding-inline-end: 40px; }
-.s-footer__col {
-  border-inline-start: var(--hair) solid var(--contrast);
-  padding-inline-start: 34px;
+.s-footer__cols {
+  gap: 0;
+  border-block-start: var(--bar) solid var(--contrast);
+  padding-block-start: var(--wp--preset--spacing--40);
 }
+.s-footer__brand { padding-inline-end: 40px; position: relative; }
+.s-footer__brand::after {
+  content: "";
+  position: absolute;
+  inset-block: calc(var(--wp--preset--spacing--40) * -1);
+  inset-inline-end: 0;
+  border-inline-end: var(--hair) solid var(--contrast);
+}
+.s-footer__col { padding-inline-start: 34px; }
+/* The colophon sits close under its hairline: no flow gap on top of the
+   separator's own margin. */
+.s-footer > .s-colophon { margin-block-start: 0; }
 
 /* A stacked nav in the footer: no outer padding, no gap between items - the
    12px padding on each link gives both the rhythm and the 44px hit target. */
 .s-nav--stacked { padding-block: 0; }
 .s-nav--stacked .wp-block-navigation__container { gap: 0; align-items: flex-start; }
+
+/* No dropdowns in the footer. A parent's children are listed straight under
+   it, set like every other item: core's pop-out panel is flattened into the
+   list and its toggle hidden. Four classes deep to outrank core's own
+   .wp-block-navigation .has-child .wp-block-navigation__submenu-container. */
+.s-footer .wp-block-navigation .has-child { flex-direction: column; align-items: flex-start; }
+.s-footer .wp-block-navigation .has-child .wp-block-navigation__submenu-container {
+  position: static;
+  visibility: visible;
+  opacity: 1;
+  inline-size: auto;
+  block-size: auto;
+  min-inline-size: 0;
+  overflow: visible;
+  inset: auto;
+  z-index: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  transition: none;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.s-footer .wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+  padding: 6px 0;
+}
+.s-footer .wp-block-navigation__submenu-icon { display: none; }
+
+/* Footer menus sit tighter than the header's: 6px a side keeps each link
+   around 32px tall, above WCAG 2.2's 24px minimum target. */
+.s-footer .s-nav .wp-block-navigation-item__content { padding-block: 6px; }
+
+/* A parent's children read like the colophon - sentence case in the body
+   mono - so they sit under the parent's capitals as a quieter second level. */
+.s-footer .s-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+  font-family: var(--mono);
+  font-size: var(--wp--preset--font-size--body);
+  font-weight: 300;
+  letter-spacing: inherit;
+  text-transform: none;
+  opacity: 0.7;
+}
 
 /* A plain link list, styled like the nav beside it. */
 .s-footer__list { list-style: none; margin: 0; padding-inline-start: 0; }
@@ -532,6 +589,7 @@ ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li 
 
 @media (max-width: 781px) {
   .s-footer__brand { padding-inline-end: 0; }
+  .s-footer__brand::after { display: none; }
   .s-footer__col {
     border-inline-start: none;
     border-block-start: var(--hair) solid var(--contrast);

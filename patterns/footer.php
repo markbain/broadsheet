@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"footer","className":"s-footer s-ink-accent","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
-<footer class="wp-block-group s-footer s-ink-accent" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
+<!-- wp:group {"tagName":"footer","className":"s-footer s-ink-accent","style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|30"}}},"layout":{"type":"constrained"}} -->
+<footer class="wp-block-group s-footer s-ink-accent" style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--30)">
 
 	<!-- wp:columns {"className":"s-footer__cols","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|40","left":"0"}}}} -->
 	<div class="wp-block-columns s-footer__cols">
