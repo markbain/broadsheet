@@ -1,13 +1,13 @@
 /*
 Theme Name: Broadsheet
-Theme URI: https://example.com/broadsheet
+Theme URI: https://bain.design/broadsheet
 Author: Bain Design
 Author URI: https://bain.design
-Description: A poster-on-a-wall block theme. Flat ink on paper, a visible hairline grid, and three signature moves: the slip, the bracket, and one ink per band. Built to the CSS foundation spec in bain-theme-factory.
+Description: A poster-on-a-wall block theme. Flat ink on paper, a visible hairline grid, and three signature moves: the slip, the bracket, and one ink per band.
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
-Version: 0.1.0
+Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: broadsheet
@@ -163,16 +163,19 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 /* --------------------------------------------------------------------------
    The visible grid.
-   Hairlines are a 1px gap over an ink ground, not per-cell borders. A four-up
-   can drop to two and then one and every rule stays where it should.
+   Each cell draws a hairline ring (a 1px spread shadow) into the 1px gap,
+   where it overlaps its neighbour's into a single rule. A four-up can drop
+   to two and then one and every rule stays where it should, and a short last
+   row - five posts in a four-up, say - leaves paper, not a block of ink.
+   The padding gives the outer rings room inside the grid's box.
    -------------------------------------------------------------------------- */
 
 .s-grid {
   display: grid;
   gap: var(--hair);
-  background: var(--ink);
-  border: var(--hair) solid var(--ink);
+  padding: var(--hair);
 }
+.s-grid > * { box-shadow: 0 0 0 var(--hair) var(--ink); }
 /* Children are grid items, not a flow. Core's flow-layout rule puts a
    block-gap margin on every child after the first, which shunts the cells out
    of alignment - zero it here.
@@ -184,7 +187,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 /* The margin reset must NOT be low-specificity: core's flow-layout rule is
    also zero-specificity and would win on source order, pushing every cell
-   after the first down and exposing the grid's ink ground as a solid block. */
+   after the first down and out of line with its row. */
 .s-grid > * { margin-block: 0; }
 
 .s-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -204,14 +207,18 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   min-height: 44px;
 }
 /* The row's type is carried by the stylesheet, not by utility classes on every
-   list item - so the pattern stays a plain core/list an editor can extend. */
-.s-row a {
+   list item - so the pattern stays a plain core/list an editor can extend. It
+   sits on the row, so an entry reads the same before and after an editor
+   links it. */
+.s-row {
   font-family: var(--disp);
   font-weight: 900;
   text-transform: uppercase;
   font-size: var(--wp--preset--font-size--d-3);
   line-height: 0.92;
   letter-spacing: 0.005em;
+}
+.s-row a {
   text-decoration: none;
   flex: 1 1 auto;
 }
@@ -532,3 +539,31 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   padding: 14px;
 }
 .wp-block-search__button { border-radius: 0; }
+
+/*
+  Classic [gallery] shortcode. Block themes get no core gallery CSS (html5
+  support turns it off), so the items would stack one per row. A grid with
+  the column count from the shortcode, at wide size rather than the text
+  column (AC-011, AC-012). Thumbnails keep their own size.
+*/
+.wp-block-post-content > .gallery { max-width: var(--wp--style--global--wide-size); }
+.gallery {
+  --gallery-cols: 3;
+  display: grid;
+  grid-template-columns: repeat(var(--gallery-cols), minmax(0, 1fr));
+  gap: var(--wp--preset--spacing--20);
+}
+.gallery-columns-1 { --gallery-cols: 1; }
+.gallery-columns-2 { --gallery-cols: 2; }
+.gallery-columns-4 { --gallery-cols: 4; }
+.gallery-columns-5 { --gallery-cols: 5; }
+.gallery-columns-6 { --gallery-cols: 6; }
+.gallery-columns-7 { --gallery-cols: 7; }
+.gallery-columns-8 { --gallery-cols: 8; }
+.gallery-columns-9 { --gallery-cols: 9; }
+.gallery-item { margin: 0; }
+.gallery-icon { text-align: center; }
+.gallery-icon img { display: inline-block; }
+@media (max-width: 600px) {
+  .gallery:not(.gallery-columns-1) { --gallery-cols: 2; }
+}

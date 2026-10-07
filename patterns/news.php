@@ -8,7 +8,7 @@
  * Description: Latest posts in a four-column hairline grid that drops to two, then one.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

@@ -9,7 +9,7 @@
  * Description: The heading, explanation and search field shown on a 404.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

@@ -4,7 +4,7 @@ A block theme. Poster-on-a-wall: flat ink on paper, a visible hairline grid,
 extreme contrast between display and body type, and deliberate empty stretches
 as punctuation.
 
-Version 0.1.0. Requires WordPress 6.6 or later: theme.json version 3, the
+Version 1.0.0. Requires WordPress 6.6 or later: theme.json version 3, the
 `defaultSpacingSizes` setting (6.6), and `wp:pattern` inside template parts
 (6.3). The masthead uses CSS `:has()`.
 
