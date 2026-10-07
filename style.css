@@ -163,16 +163,19 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 /* --------------------------------------------------------------------------
    The visible grid.
-   Hairlines are a 1px gap over an ink ground, not per-cell borders. A four-up
-   can drop to two and then one and every rule stays where it should.
+   Each cell draws a hairline ring (a 1px spread shadow) into the 1px gap,
+   where it overlaps its neighbour's into a single rule. A four-up can drop
+   to two and then one and every rule stays where it should, and a short last
+   row - five posts in a four-up, say - leaves paper, not a block of ink.
+   The padding gives the outer rings room inside the grid's box.
    -------------------------------------------------------------------------- */
 
 .s-grid {
   display: grid;
   gap: var(--hair);
-  background: var(--ink);
-  border: var(--hair) solid var(--ink);
+  padding: var(--hair);
 }
+.s-grid > * { box-shadow: 0 0 0 var(--hair) var(--ink); }
 /* Children are grid items, not a flow. Core's flow-layout rule puts a
    block-gap margin on every child after the first, which shunts the cells out
    of alignment - zero it here.
@@ -184,7 +187,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 /* The margin reset must NOT be low-specificity: core's flow-layout rule is
    also zero-specificity and would win on source order, pushing every cell
-   after the first down and exposing the grid's ink ground as a solid block. */
+   after the first down and out of line with its row. */
 .s-grid > * { margin-block: 0; }
 
 .s-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
