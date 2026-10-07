@@ -91,7 +91,7 @@ if ( ! function_exists( 'broadsheet_pattern_categories' ) ) :
 			'broadsheet_section',
 			array(
 				'label'       => __( 'Broadsheet sections', 'broadsheet' ),
-				'description' => __( 'Bands, hairline grids, ledgers and pauses.', 'broadsheet' ),
+				'description' => __( 'Bands, hairline grids and ledgers.', 'broadsheet' ),
 			)
 		);
 

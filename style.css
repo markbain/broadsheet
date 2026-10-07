@@ -709,10 +709,6 @@ header > .s-navrow { margin-block-start: 0; }
 .wp-block-post-template.s-grid { display: grid; }
 .wp-block-post-template.s-ledger { display: block; }
 
-/* Section head: heading left, "everything" link right. */
-.s-head { align-items: flex-end; padding-block-end: 26px; }
-.s-head :where(h1, h2, h3, p) { margin-block: 0; }
-
 /* Hero cells. */
 .s-hero-copy { display: flex; flex-direction: column; justify-content: space-between; gap: 26px; }
 .s-hero-copy > * { margin-block: 0; }
