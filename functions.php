@@ -230,8 +230,9 @@ if ( ! function_exists( 'broadsheet_paginated_post_links' ) ) :
 			array(
 				'echo'             => false,
 				'next_or_number'   => 'next',
-				'nextpagelink'     => __( 'Next page', 'broadsheet' ),
-				'previouspagelink' => __( 'Previous page', 'broadsheet' ),
+				// Wrapped so the stylesheet can set the bracket on the right side of each.
+				'nextpagelink'     => '<span class="s-pager-next">' . esc_html__( 'Next page', 'broadsheet' ) . '</span>',
+				'previouspagelink' => '<span class="s-pager-prev">' . esc_html__( 'Previous page', 'broadsheet' ) . '</span>',
 				'before'           => '<div class="wp-block-group s-link" style="display:flex;justify-content:space-between;gap:20px">',
 				'link_before'      => '<span class="u-lab">',
 				'link_after'       => '</span>',
