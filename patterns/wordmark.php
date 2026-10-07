@@ -9,7 +9,7 @@
  * Description: The site name set as the slip - three strips, the middle one pushed sideways.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 $broadsheet_name = get_bloginfo( 'name' );

@@ -9,7 +9,7 @@
  * Description: An underlined link closed by the bracket tick. The tick is drawn in CSS, so this stays an ordinary editable paragraph.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

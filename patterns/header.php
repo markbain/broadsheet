@@ -9,7 +9,7 @@
  * Description: Wordmark, tagline, the heavy bar, and the navigation row with search.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

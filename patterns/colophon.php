@@ -9,7 +9,7 @@
  * Description: Copyright line, and the privacy policy link once the site has set one.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

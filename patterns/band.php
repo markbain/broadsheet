@@ -9,7 +9,7 @@
  * Description: A full-bleed band with corner crop marks and one short slogan. One ink per band - set it with the Ink block style.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

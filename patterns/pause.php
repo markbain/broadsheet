@@ -8,7 +8,7 @@
  * Description: A deliberate empty stretch with one quiet line in it. Punctuation, not filler.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

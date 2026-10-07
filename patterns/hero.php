@@ -8,7 +8,7 @@
  * Description: Photograph, statement and an open-call panel, in one hairline grid.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

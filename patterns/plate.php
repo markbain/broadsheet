@@ -9,7 +9,7 @@
  * Description: A photograph filling its cell, with a solid category tag stuck in the corner. Replace the image through the media library.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

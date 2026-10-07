@@ -5,7 +5,7 @@
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -24,7 +24,7 @@ if ( ! function_exists( 'broadsheet_enqueue_styles' ) ) :
 	 * load order: reset / base / layout (layered) first, components (unlayered)
 	 * second. See README.md, "The layer contract".
 	 *
-	 * @since Broadsheet 0.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @return void
 	 */
@@ -63,7 +63,7 @@ if ( ! function_exists( 'broadsheet_editor_style' ) ) :
 	 * Enqueues the same two stylesheets in the editors, so what an editor sees
 	 * matches the front end.
 	 *
-	 * @since Broadsheet 0.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @return void
 	 */
@@ -82,7 +82,7 @@ if ( ! function_exists( 'broadsheet_pattern_categories' ) ) :
 	/**
 	 * Registers pattern categories.
 	 *
-	 * @since Broadsheet 0.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @return void
 	 */
@@ -114,7 +114,7 @@ if ( ! function_exists( 'broadsheet_remove_core_patterns' ) ) :
 	 * in rounded cards, gradients and shadows the design does not have. Comment
 	 * out the add_action below if a site needs them.
 	 *
-	 * @since Broadsheet 0.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @return void
 	 */
@@ -132,7 +132,7 @@ if ( ! function_exists( 'broadsheet_block_styles' ) ) :
 	 * CSS. The rationing rule is one loud ink per band, so they are mutually
 	 * exclusive by design: pick one per section.
 	 *
-	 * @since Broadsheet 0.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @return void
 	 */
@@ -210,7 +210,7 @@ if ( ! function_exists( 'broadsheet_paginated_post_links' ) ) :
 	 * other plain link rows (post-navigation-link uses the same `.s-link` /
 	 * `.u-lab` pair in templates/single.html).
 	 *
-	 * @since Broadsheet 0.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @param string $content The current page's post content.
 	 * @return string
@@ -255,7 +255,7 @@ if ( ! function_exists( 'broadsheet_caption_width' ) ) :
 	 * than the column (or the phone) pushes the page sideways. Without it the
 	 * figure sizes like a block image: capped by the column, then by its parent.
 	 *
-	 * @since Broadsheet 0.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @return int Zero, which tells core to omit the style attribute.
 	 */
