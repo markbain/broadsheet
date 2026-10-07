@@ -532,3 +532,31 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   padding: 14px;
 }
 .wp-block-search__button { border-radius: 0; }
+
+/*
+  Classic [gallery] shortcode. Block themes get no core gallery CSS (html5
+  support turns it off), so the items would stack one per row. A grid with
+  the column count from the shortcode, at wide size rather than the text
+  column (AC-011, AC-012). Thumbnails keep their own size.
+*/
+.wp-block-post-content > .gallery { max-width: var(--wp--style--global--wide-size); }
+.gallery {
+  --gallery-cols: 3;
+  display: grid;
+  grid-template-columns: repeat(var(--gallery-cols), minmax(0, 1fr));
+  gap: var(--wp--preset--spacing--20);
+}
+.gallery-columns-1 { --gallery-cols: 1; }
+.gallery-columns-2 { --gallery-cols: 2; }
+.gallery-columns-4 { --gallery-cols: 4; }
+.gallery-columns-5 { --gallery-cols: 5; }
+.gallery-columns-6 { --gallery-cols: 6; }
+.gallery-columns-7 { --gallery-cols: 7; }
+.gallery-columns-8 { --gallery-cols: 8; }
+.gallery-columns-9 { --gallery-cols: 9; }
+.gallery-item { margin: 0; }
+.gallery-icon { text-align: center; }
+.gallery-icon img { display: inline-block; }
+@media (max-width: 600px) {
+  .gallery:not(.gallery-columns-1) { --gallery-cols: 2; }
+}
