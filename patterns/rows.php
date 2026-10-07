@@ -9,7 +9,7 @@
  * Description: Stacked full-width rows, name at the left and a bracket parked at the right.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

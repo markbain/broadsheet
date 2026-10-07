@@ -9,7 +9,7 @@
  * Description: The slip wordmark at footer size.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 $broadsheet_name = get_bloginfo( 'name' );

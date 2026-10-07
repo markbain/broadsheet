@@ -8,7 +8,7 @@
  * Description: A section title and quiet paragraph on the left, a set of hairline rows on the right.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>

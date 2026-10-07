@@ -9,7 +9,7 @@
  * Description: Wordmark and tagline beside the site menu, with the colophon below.
  *
  * @package Broadsheet
- * @since Broadsheet 0.1.0
+ * @since Broadsheet 1.0.0
  */
 
 ?>
