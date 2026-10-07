@@ -138,9 +138,9 @@ if ( ! function_exists( 'broadsheet_block_styles' ) ) :
 	 */
 	function broadsheet_block_styles() {
 		$inks = array(
-			'ink-red'   => __( 'Ink: red', 'broadsheet' ),
-			'ink-blue'  => __( 'Ink: blue', 'broadsheet' ),
-			'ink-black' => __( 'Ink: black', 'broadsheet' ),
+			'ink-accent'   => __( 'Ink: accent', 'broadsheet' ),
+			'ink-secondary'  => __( 'Ink: secondary', 'broadsheet' ),
+			'ink-contrast' => __( 'Ink: contrast', 'broadsheet' ),
 		);
 
 		foreach ( array( 'core/group', 'core/columns' ) as $block ) {

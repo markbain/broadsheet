@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"align":"full","className":"s-band s-ink-red","layout":{"type":"default"}} -->
-<div class="wp-block-group alignfull s-band s-ink-red">
+<!-- wp:group {"align":"full","className":"s-band s-ink-accent","layout":{"type":"default"}} -->
+<div class="wp-block-group alignfull s-band s-ink-accent">
 	<!-- wp:heading {"level":2,"fontSize":"d-2"} -->
 	<h2 class="wp-block-heading has-d-2-font-size"><?php esc_html_e( 'A short line that earns the whole width', 'broadsheet' ); ?></h2>
 	<!-- /wp:heading -->

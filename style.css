@@ -48,15 +48,15 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   letter-spacing: 0.005em;
 }
 
-.u-quiet { color: var(--quiet); }
+.u-quiet { color: var(--muted); }
 .u-accent { color: var(--accent-text); }
 .u-plain { text-decoration: none; }
 .u-plain:hover { text-decoration: underline; }
 
 /* Move three: one ink per band. Set the section's ink, never mix two. */
-.s-ink-red,   .is-style-ink-red   { --accent: var(--red);  --accent-text: var(--red-text); }
-.s-ink-blue,  .is-style-ink-blue  { --accent: var(--blue); --accent-text: var(--blue); }
-.s-ink-black, .is-style-ink-black { --accent: var(--ink);  --accent-text: var(--ink); }
+.s-ink-accent,   .is-style-ink-accent   { --accent: var(--accent-1);  --accent-text: var(--accent-1-text); }
+.s-ink-secondary,  .is-style-ink-secondary  { --accent: var(--accent-2); --accent-text: var(--accent-2); }
+.s-ink-contrast, .is-style-ink-contrast { --accent: var(--contrast);  --accent-text: var(--contrast); }
 
 /* --------------------------------------------------------------------------
    Move one: the slip.
@@ -87,9 +87,9 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 /* Must out-specify `.s-slip > span` above, or every strip goes absolute and
    the wordmark collapses to zero height. */
 .s-slip > .s-slip__sizer { position: relative; visibility: hidden; }
-.s-slip__a { clip-path: inset(0 0 58% 0);   color: var(--ink); }
+.s-slip__a { clip-path: inset(0 0 58% 0);   color: var(--contrast); }
 .s-slip__b { clip-path: inset(42% 0 24% 0); color: var(--accent); transform: translateX(var(--wp--custom--slip--offset)); }
-.s-slip__c { clip-path: inset(76% 0 0 0);   color: var(--ink); transform: translateX(var(--wp--custom--slip--counter)); }
+.s-slip__c { clip-path: inset(76% 0 0 0);   color: var(--contrast); transform: translateX(var(--wp--custom--slip--counter)); }
 
 .s-slip--flat > span { position: relative; clip-path: none; transform: none; }
 .s-slip--flat > .s-slip__sizer,
@@ -146,7 +146,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 .s-link { display: inline-flex; align-items: center; }
 .s-link a, a.s-tick { color: var(--accent-text); }
-.s-link a:hover, a.s-tick:hover { color: var(--ink); }
+.s-link a:hover, a.s-tick:hover { color: var(--contrast); }
 .s-link .u-lab, a.s-tick { padding-block: 12px; }   /* keeps the 44px hit target */
 
 .s-band {
@@ -154,12 +154,12 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   padding-block: clamp(34px, 5vw, 62px);
   padding-inline: clamp(56px, 8vw, 96px);
   background: var(--accent);
-  color: var(--paper);
+  color: var(--base);
 }
 .s-band :where(h1, h2, h3, p) { text-align: center; color: inherit; margin: 0; position: relative; }
 
-/* On a dark band the reversed type goes yellow, never a second loud ink. */
-.s-band:is(.s-ink-blue, .is-style-ink-blue, .s-ink-black, .is-style-ink-black) { color: var(--yellow); }
+/* On a dark band the reversed type goes accent-3, never a second loud ink. */
+.s-band:is(.s-ink-secondary, .is-style-ink-secondary, .s-ink-contrast, .is-style-ink-contrast) { color: var(--accent-3); }
 
 /* --------------------------------------------------------------------------
    The visible grid.
@@ -175,15 +175,15 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   gap: var(--hair);
   padding: var(--hair);
 }
-.s-grid > * { box-shadow: 0 0 0 var(--hair) var(--ink); }
+.s-grid > * { box-shadow: 0 0 0 var(--hair) var(--contrast); }
 /* Children are grid items, not a flow. Core's flow-layout rule puts a
    block-gap margin on every child after the first, which shunts the cells out
    of alignment - zero it here.
 
    Wrapped in :where() so the whole selector has zero specificity: a cell that
-   opts into a palette colour (has-blue-background-color) must win, and it
+   opts into a palette colour (has-accent-2-background-color) must win, and it
    would otherwise tie with `.s-grid > *` and lose on source order. */
-:where(.s-grid) > * { background: var(--paper); min-width: 0; }
+:where(.s-grid) > * { background: var(--base); min-width: 0; }
 
 /* The margin reset must NOT be low-specificity: core's flow-layout rule is
    also zero-specificity and would win on source order, pushing every cell
@@ -199,11 +199,11 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 .s-cell--tight { padding: clamp(20px, 1.9vw, 26px); }
 
 /* Stacked hairline rows: name at the left, bracket parked at the right. */
-.s-rows { list-style: none; margin: 0; padding-inline-start: 0; border-block-start: var(--hair) solid var(--ink); }
+.s-rows { list-style: none; margin: 0; padding-inline-start: 0; border-block-start: var(--hair) solid var(--contrast); }
 .s-row {
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
   padding-block: clamp(16px, 1.9vw, 26px);
-  border-block-end: var(--hair) solid var(--ink);
+  border-block-end: var(--hair) solid var(--contrast);
   min-height: 44px;
 }
 /* The row's type is carried by the stylesheet, not by utility classes on every
@@ -234,9 +234,9 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 }
 
 /* Small parts */
-.s-tag { display: inline-block; background: var(--accent); color: var(--paper); padding: 9px 14px; }
-.s-chip { display: inline-block; border: var(--hair) solid var(--ink); padding: 7px 12px; }
-.s-chip.is-on { background: var(--ink); color: var(--paper); }
+.s-tag { display: inline-block; background: var(--accent); color: var(--base); padding: 9px 14px; }
+.s-chip { display: inline-block; border: var(--hair) solid var(--contrast); padding: 7px 12px; }
+.s-chip.is-on { background: var(--contrast); color: var(--base); }
 
 /* The photograph cell.
 
@@ -246,8 +246,8 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
    cover reads as a flat placeholder, and a real image simply covers it. */
 .s-plate {
   position: relative;
-  background: var(--plate);
-  color: var(--quiet);
+  background: var(--surface);
+  color: var(--muted);
   min-height: clamp(200px, 30vw, 470px);
   padding: 0;
   align-items: stretch;
@@ -275,7 +275,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 .wp-block-separator.is-style-bar,
 .wp-block-separator.is-style-hairline {
   border: 0;
-  background: var(--ink);
+  background: var(--contrast);
   opacity: 1;
   width: 100%;
   max-width: none;
@@ -289,8 +289,8 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
    -------------------------------------------------------------------------- */
 
 .s-masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
-.s-bar { height: clamp(5px, 0.5vw, 7px); background: var(--ink); }
-.s-hair { height: var(--hair); background: var(--ink); }
+.s-bar { height: clamp(5px, 0.5vw, 7px); background: var(--contrast); }
+.s-hair { height: var(--hair); background: var(--contrast); }
 
 /* Navigation.
    This uses core/navigation rather than a bespoke menu, so the responsive
@@ -308,11 +308,11 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   padding-block: 12px;                       /* keeps the 44px hit target */
 }
 .s-nav .wp-block-navigation-item__content:hover { text-decoration: underline; }
-.s-nav .current-menu-item .wp-block-navigation-item__content { border-block-end: 2px solid var(--ink); }
+.s-nav .current-menu-item .wp-block-navigation-item__content { border-block-end: 2px solid var(--contrast); }
 
 /* The overlay is flat paper, like everything else - no scrim, no rounding. */
 .s-nav .wp-block-navigation__responsive-container.is-menu-open {
-  background: var(--paper);
+  background: var(--base);
   padding: clamp(20px, 5.2vw, 96px);
 }
 .s-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container {
@@ -321,7 +321,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 }
 .s-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content { padding-block: 14px; }
 .s-nav .wp-block-navigation__responsive-container-open,
-.s-nav .wp-block-navigation__responsive-container-close { color: var(--ink); }
+.s-nav .wp-block-navigation__responsive-container-close { color: var(--contrast); }
 
 /* The navigation row: menu left, search right, on the same hairline. */
 .s-navrow { gap: 24px; align-items: center; padding-block: 10px; }
@@ -329,13 +329,13 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 .s-navrow > * { margin-block: 0; }
 
 /* Header search: set like the nav labels, a hairline box, the button an ink
-   block that turns red on hover like every other button. */
+   block that turns accent-1 on hover like every other button. */
 .s-search { flex: 0 1 260px; min-inline-size: 0; }
 .s-search .wp-block-search__inside-wrapper {
-  border: var(--hair) solid var(--ink);
+  border: var(--hair) solid var(--contrast);
   border-radius: 0;
   padding: 0;
-  background: var(--paper);
+  background: var(--base);
 }
 .s-search .wp-block-search__input {
   border: none;
@@ -347,15 +347,15 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
-.s-search .wp-block-search__input::placeholder { color: var(--quiet); opacity: 1; }
+.s-search .wp-block-search__input::placeholder { color: var(--muted); opacity: 1; }
 .s-search .wp-block-search__button {
   margin: 0;
   padding-inline: 12px;
   min-inline-size: 44px;                     /* 44px hit target */
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--contrast);
+  color: var(--base);
 }
-.s-search .wp-block-search__button:hover { background: var(--red); }
+.s-search .wp-block-search__button:hover { background: var(--accent-1); }
 .s-search .wp-block-search__button svg { fill: currentColor; }
 
 /* --------------------------------------------------------------------------
@@ -367,7 +367,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 .s-footer__cols { gap: 0; }
 .s-footer__brand { padding-inline-end: 40px; }
 .s-footer__col {
-  border-inline-start: var(--hair) solid var(--ink);
+  border-inline-start: var(--hair) solid var(--contrast);
   padding-inline-start: 34px;
 }
 
@@ -395,7 +395,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
    Ledger (index / archive listing)
    -------------------------------------------------------------------------- */
 
-.s-ledger { list-style: none; margin: 0; padding: 0; border-block-start: var(--hair) solid var(--ink); }
+.s-ledger { list-style: none; margin: 0; padding: 0; border-block-start: var(--hair) solid var(--contrast); }
 .s-entry {
   display: grid;
   grid-template-columns: 96px minmax(0, 1fr) 220px 190px 60px;
@@ -403,7 +403,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   align-items: center;
   gap: 12px;
   padding-block: clamp(16px, 1.6vw, 22px);
-  border-block-end: var(--hair) solid var(--ink);
+  border-block-end: var(--hair) solid var(--contrast);
 }
 .s-entry__no { grid-area: no; }
 .s-entry__title { grid-area: title; text-decoration: none; }
@@ -420,10 +420,10 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   -webkit-mask: var(--tick) no-repeat center / contain;
   mask: var(--tick) no-repeat center / contain;
 }
-.s-entry--on { background: var(--blue); padding-inline: 16px; }
-.s-entry--on .s-entry__title { color: var(--paper); }
-.s-entry--on .u-lab { color: var(--yellow); }
-.s-entry--on::after { background-color: var(--yellow); }
+.s-entry--on { background: var(--accent-2); padding-inline: 16px; }
+.s-entry--on .s-entry__title { color: var(--base); }
+.s-entry--on .u-lab { color: var(--accent-3); }
+.s-entry--on::after { background-color: var(--accent-3); }
 
 /* --------------------------------------------------------------------------
    Responsive. The grid drops columns; the rules stay.
@@ -443,7 +443,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   .s-footer__brand { padding-inline-end: 0; }
   .s-footer__col {
     border-inline-start: none;
-    border-block-start: var(--hair) solid var(--ink);
+    border-block-start: var(--hair) solid var(--contrast);
     padding-inline-start: 0;
     padding-block-start: 18px;
   }
@@ -533,9 +533,9 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 /* The search block, flattened. */
 .wp-block-search__input {
-  border: var(--hair) solid var(--ink);
+  border: var(--hair) solid var(--contrast);
   border-radius: 0;
-  background: var(--paper);
+  background: var(--base);
   padding: 14px;
 }
 .wp-block-search__button { border-radius: 0; }
