@@ -1,9 +1,9 @@
 /*
 Theme Name: Broadsheet
-Theme URI: https://example.com/broadsheet
+Theme URI: https://bain.design/broadsheet
 Author: Bain Design
 Author URI: https://bain.design
-Description: A poster-on-a-wall block theme. Flat ink on paper, a visible hairline grid, and three signature moves: the slip, the bracket, and one ink per band. Built to the CSS foundation spec in bain-theme-factory.
+Description: A poster-on-a-wall block theme. Flat ink on paper, a visible hairline grid, and three signature moves: the slip, the bracket, and one ink per band.
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -207,14 +207,18 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   min-height: 44px;
 }
 /* The row's type is carried by the stylesheet, not by utility classes on every
-   list item - so the pattern stays a plain core/list an editor can extend. */
-.s-row a {
+   list item - so the pattern stays a plain core/list an editor can extend. It
+   sits on the row, so an entry reads the same before and after an editor
+   links it. */
+.s-row {
   font-family: var(--disp);
   font-weight: 900;
   text-transform: uppercase;
   font-size: var(--wp--preset--font-size--d-3);
   line-height: 0.92;
   letter-spacing: 0.005em;
+}
+.s-row a {
   text-decoration: none;
   flex: 1 1 auto;
 }

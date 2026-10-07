@@ -42,7 +42,7 @@
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph {"className":"u-lab","textColor":"yellow"} -->
-		<p class="u-lab has-yellow-color has-text-color"><?php echo esc_html__( 'Closes [DATE]', 'broadsheet' ) . '<br>' . esc_html__( 'Ten places', 'broadsheet' ); ?></p>
+		<p class="u-lab has-yellow-color has-text-color"><?php echo esc_html__( 'A closing date', 'broadsheet' ) . '<br>' . esc_html__( 'Ten places', 'broadsheet' ); ?></p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->

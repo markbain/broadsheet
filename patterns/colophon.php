@@ -6,7 +6,7 @@
  * Categories: broadsheet_part
  * Inserter: no
  * Viewport width: 1400
- * Description: Copyright line and legal links.
+ * Description: Copyright line, and the privacy policy link once the site has set one.
  *
  * @package Broadsheet
  * @since Broadsheet 0.1.0
@@ -28,10 +28,10 @@
 	</p>
 	<!-- /wp:paragraph -->
 
-	<!-- wp:navigation {"className":"s-nav s-nav--inline u-quiet","overlayMenu":"never","layout":{"type":"flex","justifyContent":"right"}} -->
-		<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Terms', 'broadsheet' ); ?>","url":"#"} /-->
-
-		<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Privacy', 'broadsheet' ); ?>","url":"#"} /-->
-	<!-- /wp:navigation -->
+	<?php if ( get_privacy_policy_url() ) : ?>
+	<!-- wp:paragraph {"className":"u-lab u-quiet","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}}} -->
+	<p class="u-lab u-quiet" style="margin-top:0;margin-bottom:0"><?php echo wp_kses_post( get_the_privacy_policy_link() ); ?></p>
+	<!-- /wp:paragraph -->
+	<?php endif; ?>
 </div>
 <!-- /wp:group -->

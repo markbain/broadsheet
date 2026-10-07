@@ -6,7 +6,7 @@
  * Categories: broadsheet_part
  * Block Types: core/template-part/footer
  * Viewport width: 1400
- * Description: Wordmark and tagline beside two link columns, with the colophon below.
+ * Description: Wordmark and tagline beside the site menu, with the colophon below.
  *
  * @package Broadsheet
  * @since Broadsheet 0.1.0
@@ -29,18 +29,6 @@
 		<!-- wp:column {"className":"s-footer__col"} -->
 		<div class="wp-block-column s-footer__col">
 			<!-- wp:navigation {"className":"s-nav s-nav--stacked","overlayMenu":"never","layout":{"type":"flex","orientation":"vertical","justifyContent":"left"}} /-->
-		</div>
-		<!-- /wp:column -->
-
-		<!-- wp:column {"className":"s-footer__col"} -->
-		<div class="wp-block-column s-footer__col">
-			<!-- wp:navigation {"className":"s-nav s-nav--stacked","overlayMenu":"never","layout":{"type":"flex","orientation":"vertical","justifyContent":"left"}} -->
-				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Newsletter', 'broadsheet' ); ?>","url":"#"} /-->
-
-				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Contact', 'broadsheet' ); ?>","url":"#"} /-->
-
-				<!-- wp:navigation-link {"label":"<?php esc_attr_e( 'Press kit', 'broadsheet' ); ?>","url":"#"} /-->
-			<!-- /wp:navigation -->
 		</div>
 		<!-- /wp:column -->
 	</div>
