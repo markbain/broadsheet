@@ -498,10 +498,7 @@
 			},
 			"core/latest-posts": {
 				"color": {
-					"text": "var(--wp--preset--color--muted)"
-				},
-				"typography": {
-					"fontSize": "var(--wp--preset--font-size--label)"
+					"text": "var(--wp--preset--color--contrast)"
 				}
 			},
 			"core/latest-comments": {
