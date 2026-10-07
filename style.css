@@ -83,6 +83,11 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   text-decoration: none;
   line-height: 1;
 }
+/* The masthead wordmark is full size on the front page (WordPress marks it
+   .home, whatever Settings > Reading sets as the front page) and steps down
+   everywhere else. The slip offsets are in em, so the strips scale with it. */
+.s-slip--masthead { font-size: var(--wp--preset--font-size--d-xl); }
+body:not(.home) .s-slip--masthead { font-size: var(--wp--preset--font-size--d-2); }
 .s-slip > span { position: absolute; inset-block-start: 0; inset-inline-start: 0; display: block; }
 /* Must out-specify `.s-slip > span` above, or every strip goes absolute and
    the wordmark collapses to zero height. */
