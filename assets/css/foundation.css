@@ -14,17 +14,19 @@
    ------------------------------------------------------------------------- */
 
 :root {
-  --paper:  var(--wp--preset--color--paper);
-  --ink:    var(--wp--preset--color--ink);
-  --red:    var(--wp--preset--color--red);
-  /* Falls back to the bright red: a site that saved its global styles before
-     this slug existed keeps a working link colour rather than none, because a
+  /* Palette slugs are roles, not hues: a user or a style variation can set
+     any colour in any slot, so nothing here may assume what a slot looks like. */
+  --base:     var(--wp--preset--color--base);
+  --contrast: var(--wp--preset--color--contrast);
+  --accent-1: var(--wp--preset--color--accent-1);
+  /* Falls back to accent-1: a site that saved its global styles before this
+     slug existed keeps a working link colour rather than none, because a
      user palette replaces the theme palette wholesale rather than merging. */
-  --red-text: var(--wp--preset--color--red-text, var(--wp--preset--color--red));
-  --blue:   var(--wp--preset--color--blue);
-  --yellow: var(--wp--preset--color--yellow);
-  --quiet:  var(--wp--preset--color--quiet);
-  --plate:  var(--wp--preset--color--plate);
+  --accent-1-text: var(--wp--preset--color--accent-1-text, var(--wp--preset--color--accent-1));
+  --accent-2: var(--wp--preset--color--accent-2);
+  --accent-3: var(--wp--preset--color--accent-3);
+  --muted:    var(--wp--preset--color--muted);
+  --surface:  var(--wp--preset--color--surface);
 
   --disp: var(--wp--preset--font-family--display);
   --mono: var(--wp--preset--font-family--mono);
@@ -40,13 +42,14 @@
   /*
     Section ink. Reset per band; never two loud inks in one section.
 
-    Two reds, deliberately: --accent is the fill (bands, tags), where any type
-    on it is large display and 3:1 is the bar. --accent-text is a darker red
-    for small link labels, which need 4.5:1 on paper. Blue and black clear
-    4.5:1 already, so their text value is the same colour.
+    Two accent-1s, deliberately: --accent is the fill (bands, tags), where any
+    type on it is large display and 3:1 is the bar. --accent-text is
+    accent-1-text, a darker shade for small link labels, which need 4.5:1 on
+    base. accent-2 and contrast clear 4.5:1 already, so their text value is
+    the same colour.
   */
-  --accent: var(--red);
-  --accent-text: var(--red-text);
+  --accent: var(--accent-1);
+  --accent-text: var(--accent-1-text);
 }
 
 @layer reset {
@@ -71,8 +74,8 @@
 
 @layer base {
   body {
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--base);
+    color: var(--contrast);
     -webkit-font-smoothing: antialiased;
   }
 
@@ -83,11 +86,11 @@
 
   :where(a):focus-visible,
   :where(button, .wp-block-button__link):focus-visible {
-    outline: 2px solid var(--red);
+    outline: 2px solid var(--accent-1);
     outline-offset: 3px;
   }
 
-  ::selection { background: var(--yellow); color: var(--ink); }
+  ::selection { background: var(--accent-3); color: var(--contrast); }
 
   .screen-reader-text {
     position: absolute; width: 1px; height: 1px; overflow: hidden;
@@ -96,7 +99,7 @@
   .skip-link:focus {
     position: fixed; inset-block-start: 8px; inset-inline-start: 8px;
     width: auto; height: auto; clip-path: none;
-    z-index: 999; background: var(--ink); color: var(--paper); padding: 12px 16px;
+    z-index: 999; background: var(--contrast); color: var(--base); padding: 12px 16px;
   }
 }
 

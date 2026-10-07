@@ -12,8 +12,8 @@
  */
 
 ?>
-<!-- wp:group {"className":"s-grid s-grid--hero s-ink-red","layout":{"type":"default"}} -->
-<div class="wp-block-group s-grid s-grid--hero s-ink-red">
+<!-- wp:group {"className":"s-grid s-grid--hero s-ink-accent","layout":{"type":"default"}} -->
+<div class="wp-block-group s-grid s-grid--hero s-ink-accent">
 
 	<!-- wp:pattern {"slug":"broadsheet/plate"} /-->
 
@@ -31,18 +31,18 @@
 	</div>
 	<!-- /wp:group -->
 
-	<!-- wp:group {"className":"s-call s-cell","backgroundColor":"blue","layout":{"type":"default"}} -->
-	<div class="wp-block-group s-call s-cell has-blue-background-color has-background">
-		<!-- wp:paragraph {"className":"u-lab","textColor":"yellow"} -->
-		<p class="u-lab has-yellow-color has-text-color"><?php esc_html_e( 'Open call', 'broadsheet' ); ?></p>
+	<!-- wp:group {"className":"s-call s-cell","backgroundColor":"accent-2","layout":{"type":"default"}} -->
+	<div class="wp-block-group s-call s-cell has-accent-2-background-color has-background">
+		<!-- wp:paragraph {"className":"u-lab","textColor":"accent-3"} -->
+		<p class="u-lab has-accent-3-color has-text-color"><?php esc_html_e( 'Open call', 'broadsheet' ); ?></p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:heading {"level":2,"fontSize":"d-1","textColor":"paper"} -->
-		<h2 class="wp-block-heading has-paper-color has-text-color has-d-1-font-size"><?php echo esc_html__( 'Four', 'broadsheet' ) . '<br>' . esc_html__( 'short', 'broadsheet' ) . '<br>' . esc_html__( 'words', 'broadsheet' ); ?></h2>
+		<!-- wp:heading {"level":2,"fontSize":"d-1","textColor":"base"} -->
+		<h2 class="wp-block-heading has-base-color has-text-color has-d-1-font-size"><?php echo esc_html__( 'Four', 'broadsheet' ) . '<br>' . esc_html__( 'short', 'broadsheet' ) . '<br>' . esc_html__( 'words', 'broadsheet' ); ?></h2>
 		<!-- /wp:heading -->
 
-		<!-- wp:paragraph {"className":"u-lab","textColor":"yellow"} -->
-		<p class="u-lab has-yellow-color has-text-color"><?php echo esc_html__( 'A closing date', 'broadsheet' ) . '<br>' . esc_html__( 'Ten places', 'broadsheet' ); ?></p>
+		<!-- wp:paragraph {"className":"u-lab","textColor":"accent-3"} -->
+		<p class="u-lab has-accent-3-color has-text-color"><?php echo esc_html__( 'A closing date', 'broadsheet' ) . '<br>' . esc_html__( 'Ten places', 'broadsheet' ); ?></p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->

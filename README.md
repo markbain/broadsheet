@@ -21,10 +21,10 @@ which is a pure block theme, not a hybrid: its only PHP file is
 2. **The bracket.** A crop mark used at two extremes of scale: a small tick
    closing a link, and a giant corner set framing a full-bleed band.
 3. **One ink per band.** Never two loud inks in the same section. They
-   alternate down the page - red, blue, black - and yellow appears only
-   reversed out of a dark panel. Editors set a section's ink with the
-   "Ink: red / blue / black" block styles on a group or columns block, which
-   set `--accent` for everything inside.
+   alternate down the page - accent, secondary, contrast - and accent-3
+   appears only reversed out of a dark panel. Editors set a section's ink with
+   the "Ink: accent / secondary / contrast" block styles on a group or columns
+   block, which set `--accent` for everything inside.
 
 ## How it is put together
 
@@ -95,7 +95,7 @@ live inside a constrained group where `alignfull` is not available.
 ### Tokens
 
 `theme.json` is the only place a value is defined. `foundation.css` aliases the
-emitted custom properties to short authoring names (`--ink`, `--gut`, and so
+emitted custom properties to short authoring names (`--contrast`, `--gut`, and so
 on) and defines nothing of its own. Change a colour or a step in `theme.json`
 and both the front end and the editor follow.
 
@@ -189,28 +189,34 @@ check fails any pattern outside `wordmark*` that contains `wp:html`.
 
 ## Colour and contrast
 
-The palette carries **two reds**. `red` is the fill - bands, tags, the wordmark
-strip - where any type sitting on it is large display and 3:1 is the bar.
-`red-text` is a darker red for small link labels, which need 4.5:1 on paper.
-Blue and black already clear 4.5:1, so their text value is the same colour. In
-CSS this is `--accent` and `--accent-text`; the ink block styles set both.
+Palette slugs name roles, not hues - `base`, `contrast`, `accent-1` to
+`accent-3`, `muted`, `surface` - because a user or a style variation can put any
+colour in any slot (Green press fills `accent-1` with a green). They match the
+role slugs of WordPress's default themes.
+
+The palette carries **two accent-1s**. `accent-1` is the fill - bands, tags, the
+wordmark strip - where any type sitting on it is large display and 3:1 is the
+bar. `accent-1-text` is a darker shade for small link labels, which need 4.5:1
+on `base`. `accent-2` and `contrast` already clear 4.5:1, so their text value is
+the same colour. In CSS this is `--accent` and `--accent-text`; the ink block
+styles set both.
 
 Measured against each palette's own ground:
 
 | Pair | Ratio |
 |---|---|
-| ink on paper | 16.7:1 |
-| quiet on paper | 4.7:1 |
-| red-text link on paper | 5.1:1 |
-| blue link on paper | 6.5:1 |
-| yellow on blue band (large only) | 4.5:1 |
-| paper on red band (large only) | 3.8:1 |
+| contrast on base | 16.7:1 |
+| muted on base | 4.7:1 |
+| accent-1-text link on base | 5.1:1 |
+| accent-2 link on base | 6.5:1 |
+| accent-3 on accent-2 band (large only) | 4.5:1 |
+| base on accent-1 band (large only) | 3.8:1 |
 
 The two band pairs are large display type only and clear the 3:1 large-text
 bar. Do not set small type in them.
 
 **Never write a hex value into a pattern.** Use palette slugs
-(`"backgroundColor":"blue"`, `"textColor":"yellow"`), or the section inherits
+(`"backgroundColor":"accent-2"`, `"textColor":"accent-3"`), or the section inherits
 the base palette and ignores whichever style variation is active. Every
 variation declares the same seven slugs for the same reason.
 
@@ -220,12 +226,12 @@ The hairline grid has two rules on its children that must sit at *different*
 specificities, and getting either wrong is silent:
 
 ```css
-:where(.s-grid) > * { background: var(--paper); min-width: 0; }
+:where(.s-grid) > * { background: var(--base); min-width: 0; }
 .s-grid > *        { margin-block: 0; }
 ```
 
 The background is wrapped in `:where()` - zero specificity - so a cell that
-opts into a palette colour (`has-blue-background-color`) wins. The margin reset
+opts into a palette colour (`has-accent-2-background-color`) wins. The margin reset
 must NOT be, because core's flow-layout margin rule is also zero-specificity
 and would win on source order, pushing every cell after the first down and
 exposing the grid's ink ground as a solid block.
@@ -257,7 +263,7 @@ picks a variation in the editor, WordPress writes the whole palette into a
 `wp_global_styles` post. Adding a new colour slug to `theme.json` after that
 will not reach the site - the saved seven-colour palette wins over the theme's
 eight, and the new custom property is simply absent. Hence the fallback on
-`--red-text` in `foundation.css`. To pick up a genuinely new slug, reset styles
+`--accent-1-text` in `foundation.css`. To pick up a genuinely new slug, reset styles
 in Appearance > Editor > Styles, or update the saved post.
 
 **Theme pattern and template changes are cached, and on the front end that

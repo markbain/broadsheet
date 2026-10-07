@@ -12,8 +12,8 @@
  */
 
 ?>
-<!-- wp:group {"className":"s-ink-red","layout":{"type":"constrained"}} -->
-<div class="wp-block-group s-ink-red">
+<!-- wp:group {"className":"s-ink-accent","layout":{"type":"constrained"}} -->
+<div class="wp-block-group s-ink-accent">
 	<!-- wp:group {"className":"s-head","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
 	<div class="wp-block-group s-head">
 		<!-- wp:heading {"fontSize":"d-2"} -->
