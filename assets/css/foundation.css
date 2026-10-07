@@ -183,6 +183,13 @@
   word-break: break-word;
 }
 
+/* The breadcrumb trail ends in the post title, which can be one unbroken
+   word. Its items are flex children, so they also need leave to shrink. */
+.wp-block-breadcrumbs li {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 /* Extra safety for code and pre blocks */
 code, pre { 
   word-break: break-all;
