@@ -83,6 +83,11 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   text-decoration: none;
   line-height: 1;
 }
+/* The masthead wordmark is full size on the front page (WordPress marks it
+   .home, whatever Settings > Reading sets as the front page) and steps down
+   everywhere else. The slip offsets are in em, so the strips scale with it. */
+.s-slip--masthead { font-size: var(--wp--preset--font-size--d-xl); }
+body:not(.home) .s-slip--masthead { font-size: var(--wp--preset--font-size--d-2); }
 .s-slip > span { position: absolute; inset-block-start: 0; inset-inline-start: 0; display: block; }
 /* Must out-specify `.s-slip > span` above, or every strip goes absolute and
    the wordmark collapses to zero height. */
@@ -122,6 +127,58 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   background-color: currentColor;
   -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2014%2014%22%3E%3Cpath%20d%3D%22M1%201H13V13%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222.4%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
   mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2014%2014%22%3E%3Cpath%20d%3D%22M1%201H13V13%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222.4%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+}
+
+/* Next and previous carry the bracket too: next closes on the corner after
+   its label, previous opens on the mirrored corner before it, so a pair reads
+   outward. Covers post navigation, listing and comment pagination, and the
+   split-post pager from functions.php. */
+:is(.post-navigation-link-next a, .wp-block-query-pagination-next, .wp-block-comments-pagination-next, .s-pager-next)::after,
+:is(.post-navigation-link-previous a, .wp-block-query-pagination-previous, .wp-block-comments-pagination-previous, .s-pager-prev)::before {
+  content: "";
+  display: inline-block;
+  inline-size: 13px;
+  block-size: 13px;
+  vertical-align: baseline;
+  background-color: currentColor;
+  -webkit-mask: var(--tick) no-repeat center / contain;
+  mask: var(--tick) no-repeat center / contain;
+}
+:is(.post-navigation-link-next a, .wp-block-query-pagination-next, .wp-block-comments-pagination-next, .s-pager-next)::after {
+  margin-inline-start: 9px;
+}
+:is(.post-navigation-link-previous a, .wp-block-query-pagination-previous, .wp-block-comments-pagination-previous, .s-pager-prev)::before {
+  margin-inline-end: 9px;
+  transform: scaleX(-1);
+}
+:is(.post-navigation-link-next a, .wp-block-query-pagination-next, .wp-block-comments-pagination-next, .s-pager-next)::after,
+:is(.post-navigation-link-previous a, .wp-block-query-pagination-previous, .wp-block-comments-pagination-previous, .s-pager-prev)::before { transition: transform 150ms ease-out; }
+/* On hover or keyboard focus the mark steps out the way the link goes. The
+   split-post pager's mark sits on a span inside the link, so its trigger is
+   the link around it. */
+:is(.post-navigation-link-next a, .wp-block-query-pagination-next, .wp-block-comments-pagination-next):is(:hover, :focus-visible)::after,
+a:is(:hover, :focus-visible) .s-pager-next::after { transform: translateX(3px); }
+:is(.post-navigation-link-previous a, .wp-block-query-pagination-previous, .wp-block-comments-pagination-previous):is(:hover, :focus-visible)::before,
+a:is(:hover, :focus-visible) .s-pager-prev::before { transform: scaleX(-1) translateX(3px); }
+/* Read more and the other bracket links (.s-tick) move the same way. The
+   bracket is on the link itself (a.s-tick, the Read More block) or after a
+   paragraph holding the link (p.s-tick, the link pattern). */
+.s-tick::after { transition: transform 150ms ease-out; }
+a.s-tick:is(:hover, :focus-visible)::after,
+.s-tick:has(a:is(:hover, :focus-visible))::after { transform: translateX(3px); }
+/* Underlined at rest like every other link - the Read More block ships with
+   none - and thickened on hover. */
+a.s-tick { text-decoration-line: underline; }
+:is(a.s-tick, .s-tick a):is(:hover, :focus-visible) { text-decoration-thickness: 2px; }
+/* The underline thickens on hover, from the hairline to 2px. */
+:is(.post-navigation-link-next a, .post-navigation-link-previous a, .wp-block-query-pagination-next, .wp-block-query-pagination-previous, .wp-block-comments-pagination-next, .wp-block-comments-pagination-previous, a:has(.s-pager-next), a:has(.s-pager-prev)):is(:hover, :focus-visible) {
+  text-decoration-thickness: 2px;
+}
+/* After the rules above, so it wins: the mark still steps, but without the glide. */
+@media (prefers-reduced-motion: reduce) {
+  .s-tick::after { transition: none; }
+  :is(.post-navigation-link-next a, .wp-block-query-pagination-next, .wp-block-comments-pagination-next, .s-pager-next)::after,
+  :is(.post-navigation-link-previous a, .wp-block-query-pagination-previous, .wp-block-comments-pagination-previous, .s-pager-prev)::before { transition: none; }
 }
 
 /* The four crop marks framing a band: one pseudo element, four mask layers. */
@@ -192,6 +249,96 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 .s-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .s-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* Post card: the featured image runs to the cell's hairlines, the text sits
+   in a tight cell below. A post without an image starts with its text. */
+.s-card { display: flex; flex-direction: column; block-size: 100%; }
+.s-card > * { margin-block: 0; }
+.s-card__image { margin: 0; }
+.s-card__image img { display: block; width: 100%; }
+.s-card .s-cell--tight { flex: 1 1 auto; }
+/* Read more sits at the foot of the card, so the links line up along a row. */
+.s-card .wp-block-read-more { margin-block-start: auto; align-self: flex-start; }
+
+/*
+  The Latest Posts block, set as post cards in the same hairline grid. Always
+  a grid: the editor's column count when one is set (Grid layout), four
+  otherwise. Core's markup puts the date after the title; the card puts it
+  first, so the parts are reordered. Core's own grid rules are
+  .is-grid:not(.is-layout-grid), so the block class is doubled here to
+  outrank them without !important.
+*/
+ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list {
+  --lp-cols: 4;
+  --lp-min: 200px;
+  --lp-pad: clamp(20px, 1.9vw, 26px);
+  display: grid;
+  /* --lp-cols is a ceiling, not a count: a card never gets narrower than
+     --lp-min, so the same block drops columns in a narrow text column as
+     well as on a narrow screen. */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(max(min(var(--lp-min), 100%), calc((100% - (var(--lp-cols) - 1) * var(--hair)) / var(--lp-cols))), 1fr)
+  );
+  gap: var(--hair);
+  padding: var(--hair);
+  list-style: none;
+}
+ul.wp-block-latest-posts.wp-block-latest-posts.columns-1 { --lp-cols: 1; }
+ul.wp-block-latest-posts.wp-block-latest-posts.columns-2 { --lp-cols: 2; }
+ul.wp-block-latest-posts.wp-block-latest-posts.columns-3 { --lp-cols: 3; }
+ul.wp-block-latest-posts.wp-block-latest-posts.columns-5 { --lp-cols: 5; }
+ul.wp-block-latest-posts.wp-block-latest-posts.columns-6 { --lp-cols: 6; }
+ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  inline-size: auto;
+  min-width: 0;
+  margin: 0;
+  padding: var(--lp-pad);
+  background: var(--base);
+  box-shadow: 0 0 0 var(--hair) var(--contrast);
+}
+ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li > * { margin: 0; }
+/* The image bleeds to the cell's hairlines, whatever alignment the editor set. */
+ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li > .wp-block-latest-posts__featured-image {
+  order: 0;
+  float: none;
+  margin: calc(var(--lp-pad) * -1) calc(var(--lp-pad) * -1) 0;
+}
+ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li > .wp-block-latest-posts__featured-image img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  max-width: none;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.wp-block-latest-posts__post-date {
+  order: 1;
+  font-family: var(--mono);
+  font-size: var(--wp--preset--font-size--label);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.9;
+  color: var(--muted);
+}
+.wp-block-latest-posts__post-title {
+  order: 2;
+  font-family: var(--disp);
+  font-size: var(--wp--preset--font-size--d-4);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.wp-block-latest-posts__post-title:hover { text-decoration: underline; }
+.wp-block-latest-posts__post-author { order: 3; }
+.wp-block-latest-posts__post-excerpt,
+.wp-block-latest-posts__post-full-content { order: 4; }
 .s-grid--hero { grid-template-columns: 372px minmax(0, 1fr) 340px; }
 .s-grid--feature { grid-template-columns: minmax(0, 1fr) 560px; }
 
@@ -278,10 +425,9 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   background: var(--contrast);
   opacity: 1;
   width: 100%;
-  max-width: none;
   margin-block: 0;
 }
-.wp-block-separator.is-style-bar { height: clamp(5px, 0.5vw, 7px); }
+.wp-block-separator.is-style-bar { height: var(--bar); }
 .wp-block-separator.is-style-hairline { height: var(--hair); }
 
 /* --------------------------------------------------------------------------
@@ -289,6 +435,8 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
    -------------------------------------------------------------------------- */
 
 .s-masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+/* The nav row sits straight under the heavy bar; its own padding is the gap. */
+header > .s-navrow { margin-block-start: 0; }
 .s-bar { height: clamp(5px, 0.5vw, 7px); background: var(--contrast); }
 .s-hair { height: var(--hair); background: var(--contrast); }
 
@@ -360,21 +508,77 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 /* --------------------------------------------------------------------------
    Footer.
-   The columns carry the hairline, so the gap between them is zero and the rule
-   is a border on each column after the brand.
+   The footer opens on the heavy rule, like the header. One hairline divides
+   the brand from the menus, joining the heavy rule above and the hairline
+   above the colophon below; the menu columns themselves are not ruled apart.
+   The divider is drawn past the column by spacing 40 at each end - the
+   columns' top padding and the separator's top margin - so it meets both.
    -------------------------------------------------------------------------- */
 
-.s-footer__cols { gap: 0; }
-.s-footer__brand { padding-inline-end: 40px; }
-.s-footer__col {
-  border-inline-start: var(--hair) solid var(--contrast);
-  padding-inline-start: 34px;
+.s-footer__cols {
+  gap: 0;
+  border-block-start: var(--bar) solid var(--contrast);
+  padding-block-start: var(--wp--preset--spacing--40);
 }
+.s-footer__brand { padding-inline-end: 40px; position: relative; }
+.s-footer__brand::after {
+  content: "";
+  position: absolute;
+  inset-block: calc(var(--wp--preset--spacing--40) * -1);
+  inset-inline-end: 0;
+  border-inline-end: var(--hair) solid var(--contrast);
+}
+.s-footer__col { padding-inline-start: 34px; }
+/* The colophon sits close under its hairline: no flow gap on top of the
+   separator's own margin. */
+.s-footer > .s-colophon { margin-block-start: 0; }
 
 /* A stacked nav in the footer: no outer padding, no gap between items - the
    12px padding on each link gives both the rhythm and the 44px hit target. */
 .s-nav--stacked { padding-block: 0; }
 .s-nav--stacked .wp-block-navigation__container { gap: 0; align-items: flex-start; }
+
+/* No dropdowns in the footer. A parent's children are listed straight under
+   it, set like every other item: core's pop-out panel is flattened into the
+   list and its toggle hidden. Four classes deep to outrank core's own
+   .wp-block-navigation .has-child .wp-block-navigation__submenu-container. */
+.s-footer .wp-block-navigation .has-child { flex-direction: column; align-items: flex-start; }
+.s-footer .wp-block-navigation .has-child .wp-block-navigation__submenu-container {
+  position: static;
+  visibility: visible;
+  opacity: 1;
+  inline-size: auto;
+  block-size: auto;
+  min-inline-size: 0;
+  overflow: visible;
+  inset: auto;
+  z-index: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  transition: none;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.s-footer .wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+  padding: 6px 0;
+}
+.s-footer .wp-block-navigation__submenu-icon { display: none; }
+
+/* Footer menus sit tighter than the header's: 6px a side keeps each link
+   around 32px tall, above WCAG 2.2's 24px minimum target. */
+.s-footer .s-nav .wp-block-navigation-item__content { padding-block: 6px; }
+
+/* A parent's children read like the colophon - sentence case in the body
+   mono - so they sit under the parent's capitals as a quieter second level. */
+.s-footer .s-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+  font-family: var(--mono);
+  font-size: var(--wp--preset--font-size--body);
+  font-weight: 300;
+  letter-spacing: inherit;
+  text-transform: none;
+  opacity: 0.7;
+}
 
 /* A plain link list, styled like the nav beside it. */
 .s-footer__list { list-style: none; margin: 0; padding-inline-start: 0; }
@@ -437,10 +641,12 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   .s-grid--feature { grid-template-columns: minmax(0, 1fr); }
   .s-grid--feature .s-plate { min-height: clamp(220px, 34vw, 330px); }
   .s-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list:not(.columns-1) { --lp-cols: 2; }
 }
 
 @media (max-width: 781px) {
   .s-footer__brand { padding-inline-end: 0; }
+  .s-footer__brand::after { display: none; }
   .s-footer__col {
     border-inline-start: none;
     border-block-start: var(--hair) solid var(--contrast);
@@ -471,6 +677,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 @media (max-width: 620px) {
   .s-grid--4, .s-grid--2 { grid-template-columns: minmax(0, 1fr); }
+  ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list:not(.columns-1) { --lp-cols: 1; }
 }
 
 @media (max-width: 560px) {
@@ -501,10 +708,6 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 /* The query loop's post template is the grid itself, not a wrapper round one. */
 .wp-block-post-template.s-grid { display: grid; }
 .wp-block-post-template.s-ledger { display: block; }
-
-/* Section head: heading left, "everything" link right. */
-.s-head { align-items: flex-end; padding-block-end: 26px; }
-.s-head :where(h1, h2, h3, p) { margin-block: 0; }
 
 /* Hero cells. */
 .s-hero-copy { display: flex; flex-direction: column; justify-content: space-between; gap: 26px; }

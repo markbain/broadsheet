@@ -91,7 +91,7 @@ if ( ! function_exists( 'broadsheet_pattern_categories' ) ) :
 			'broadsheet_section',
 			array(
 				'label'       => __( 'Broadsheet sections', 'broadsheet' ),
-				'description' => __( 'Bands, hairline grids, ledgers and pauses.', 'broadsheet' ),
+				'description' => __( 'Bands, hairline grids and ledgers.', 'broadsheet' ),
 			)
 		);
 
@@ -230,8 +230,9 @@ if ( ! function_exists( 'broadsheet_paginated_post_links' ) ) :
 			array(
 				'echo'             => false,
 				'next_or_number'   => 'next',
-				'nextpagelink'     => __( 'Next page', 'broadsheet' ),
-				'previouspagelink' => __( 'Previous page', 'broadsheet' ),
+				// Wrapped so the stylesheet can set the bracket on the right side of each.
+				'nextpagelink'     => '<span class="s-pager-next">' . esc_html__( 'Next page', 'broadsheet' ) . '</span>',
+				'previouspagelink' => '<span class="s-pager-prev">' . esc_html__( 'Previous page', 'broadsheet' ) . '</span>',
 				'before'           => '<div class="wp-block-group s-link" style="display:flex;justify-content:space-between;gap:20px">',
 				'link_before'      => '<span class="u-lab">',
 				'link_after'       => '</span>',
@@ -264,3 +265,54 @@ if ( ! function_exists( 'broadsheet_caption_width' ) ) :
 	}
 endif;
 add_filter( 'img_caption_shortcode_width', 'broadsheet_caption_width' );
+
+if ( ! function_exists( 'broadsheet_blog_home_title' ) ) :
+	/**
+	 * Gives the blog home a title: the posts page's own.
+	 *
+	 * The blog home (home.html) titles itself with a Query Title block, but
+	 * core renders that block only on archives and search - the posts page is
+	 * neither, so it would have no heading at all. When the block comes back
+	 * empty there, fill in the title of the page set as the posts page in
+	 * Settings > Reading, keeping the block's heading level, font size and
+	 * classes so the template still decides how it looks.
+	 *
+	 * @since Broadsheet 1.1.0
+	 *
+	 * @param string $block_content The rendered block, empty off archives.
+	 * @param array  $block         The parsed block.
+	 * @return string
+	 */
+	function broadsheet_blog_home_title( $block_content, $block ) {
+		if ( '' !== trim( $block_content ) || ! is_home() ) {
+			return $block_content;
+		}
+
+		$posts_page = (int) get_option( 'page_for_posts' );
+		if ( ! $posts_page ) {
+			return $block_content;
+		}
+
+		$attrs   = $block['attrs'] ?? array();
+		$level   = (int) ( $attrs['level'] ?? 1 );
+		$tag     = 0 === $level ? 'p' : 'h' . min( 6, max( 1, $level ) );
+		$classes = array( 'wp-block-query-title' );
+		if ( ! empty( $attrs['fontSize'] ) ) {
+			$classes[] = 'has-' . $attrs['fontSize'] . '-font-size';
+		}
+		if ( ! empty( $attrs['textAlign'] ) ) {
+			$classes[] = 'has-text-align-' . $attrs['textAlign'];
+		}
+		if ( ! empty( $attrs['className'] ) ) {
+			$classes[] = $attrs['className'];
+		}
+
+		return sprintf(
+			'<%1$s class="%2$s">%3$s</%1$s>',
+			$tag,
+			esc_attr( implode( ' ', $classes ) ),
+			esc_html( get_the_title( $posts_page ) )
+		);
+	}
+endif;
+add_filter( 'render_block_core/query-title', 'broadsheet_blog_home_title', 10, 2 );

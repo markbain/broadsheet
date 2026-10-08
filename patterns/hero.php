@@ -27,7 +27,7 @@
 		<p><?php esc_html_e( 'One short paragraph underneath, deliberately quiet. It is set small against a very loud heading, and it should not try to compete.', 'broadsheet' ); ?></p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:pattern {"slug":"broadsheet/link"} /-->
+		<!-- wp:pattern {"slug":"broadsheet/read-more"} /-->
 	</div>
 	<!-- /wp:group -->
 

@@ -38,6 +38,7 @@
 
   --gut:   var(--wp--custom--gutter);
   --hair:  var(--wp--custom--hairline);
+  --bar:   clamp(5px, 0.5vw, 7px);  /* the heavy rule: header, footer, bar separators */
 
   /*
     Section ink. Reset per band; never two loud inks in one section.
@@ -181,6 +182,13 @@
 .wp-block-post-content a {
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+/* The breadcrumb trail ends in the post title, which can be one unbroken
+   word. Its items are flex children, so they also need leave to shrink. */
+.wp-block-breadcrumbs li {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* Extra safety for code and pre blocks */

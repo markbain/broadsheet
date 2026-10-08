@@ -15,7 +15,7 @@
 $broadsheet_name = get_bloginfo( 'name' );
 ?>
 <!-- wp:html -->
-<a class="s-slip u-disp" href="<?php echo esc_url( home_url( '/' ) ); ?>" style="font-size: var(--wp--preset--font-size--d-xl);" aria-label="<?php echo esc_attr( $broadsheet_name ); ?>">
+<a class="s-slip s-slip--masthead u-disp" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( $broadsheet_name ); ?>">
 	<span class="s-slip__sizer" aria-hidden="true"><?php echo esc_html( $broadsheet_name ); ?></span>
 	<span class="s-slip__a" aria-hidden="true"><?php echo esc_html( $broadsheet_name ); ?></span>
 	<span class="s-slip__b" aria-hidden="true"><?php echo esc_html( $broadsheet_name ); ?></span>
