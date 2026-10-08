@@ -250,6 +250,11 @@
 		"custom": {
 			"gutter": "clamp(20px, 5.2vw, 96px)",
 			"hairline": "1px",
+			"button": {
+				"paddingBlock": "1.25em",
+				"paddingInline": "1.625em",
+				"outlineWidth": "2px"
+			},
 			"slip": {
 				"offset": "0.26em",
 				"counter": "-0.12em"
@@ -345,10 +350,10 @@
 				},
 				"spacing": {
 					"padding": {
-						"top": "14px",
-						"bottom": "14px",
-						"left": "18px",
-						"right": "18px"
+						"top": "var(--wp--custom--button--padding-block)",
+						"bottom": "var(--wp--custom--button--padding-block)",
+						"left": "var(--wp--custom--button--padding-inline)",
+						"right": "var(--wp--custom--button--padding-inline)"
 					}
 				},
 				"border": {
@@ -356,7 +361,7 @@
 				},
 				":hover": {
 					"color": {
-						"background": "var(--wp--preset--color--accent-1)",
+						"background": "var(--wp--preset--color--accent-1-text)",
 						"text": "var(--wp--preset--color--base)"
 					}
 				}
