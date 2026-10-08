@@ -155,6 +155,23 @@ if ( ! function_exists( 'broadsheet_block_styles' ) ) :
 			}
 		}
 
+		// Accent versions of core's Fill and Outline button styles. All four swap
+		// fill and outline on hover; see style.css, "Buttons".
+		register_block_style(
+			'core/button',
+			array(
+				'name'  => 'fill-accent',
+				'label' => __( 'Fill: accent', 'broadsheet' ),
+			)
+		);
+		register_block_style(
+			'core/button',
+			array(
+				'name'  => 'outline-accent',
+				'label' => __( 'Outline: accent', 'broadsheet' ),
+			)
+		);
+
 		// The two rules that separate everything: a heavy bar and a hairline.
 		register_block_style(
 			'core/separator',

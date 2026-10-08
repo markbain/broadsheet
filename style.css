@@ -476,8 +476,52 @@ header > .s-navrow { margin-block-start: 0; }
 .s-navrow .s-nav { padding-block: 4px; }
 .s-navrow > * { margin-block: 0; }
 
+/*
+  Buttons: four styles, one box, one rule - each swaps fill and outline on
+  hover or keyboard focus.
+
+    Fill (core default)   contrast fill    ->  contrast outline
+    Outline (core)        contrast outline ->  contrast fill
+    Fill: accent          accent fill      ->  accent outline
+    Outline: accent       accent outline   ->  accent fill
+
+  Each style has one colour, --btn-ink, used for its border, fill and text;
+  the other side of the swap is --base. "Accent" is --accent-text, the darker
+  shade: light label text on the bright accent is only 3.8:1, under the 4.5:1
+  a small label needs. Every style carries the same border, taken out of the
+  padding (theme.json's em button tokens), so all four are the same size.
+  Scoped to the Button block; search and form buttons keep theme.json's
+  element styling. Colours an editor sets on a button (.has-text-color,
+  .has-background) win. .wp-block-buttons > outranks core's outline rules.
+*/
+.wp-block-buttons > .wp-block-button { --btn-ink: var(--contrast); }
+.wp-block-buttons > .wp-block-button:is(.is-style-fill-accent, .is-style-outline-accent) { --btn-ink: var(--accent-text); }
+.wp-block-buttons > .wp-block-button > .wp-block-button__link {
+  border: var(--wp--custom--button--outline-width) solid var(--btn-ink);
+  padding:
+    calc(var(--wp--custom--button--padding-block) - var(--wp--custom--button--outline-width))
+    calc(var(--wp--custom--button--padding-inline) - var(--wp--custom--button--outline-width));
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+/* A button the editor coloured keeps its colours; its border goes clear so
+   the background shows through it and the box stays the same size. */
+.wp-block-buttons > .wp-block-button > .wp-block-button__link.has-background { border-color: transparent; }
+/* Fill styles: solid at rest, outline on hover. */
+.wp-block-buttons > .wp-block-button:not(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:not(.has-background) { background-color: var(--btn-ink); }
+.wp-block-buttons > .wp-block-button:not(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:not(.has-text-color) { color: var(--base); }
+.wp-block-buttons > .wp-block-button:not(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:is(:hover, :focus-visible):not(.has-background) { background-color: transparent; }
+.wp-block-buttons > .wp-block-button:not(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:is(:hover, :focus-visible):not(.has-text-color) { color: var(--btn-ink); }
+/* Outline styles: outline at rest, solid on hover. */
+.wp-block-buttons > .wp-block-button:is(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:not(.has-background) { background-color: transparent; }
+.wp-block-buttons > .wp-block-button:is(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:not(.has-text-color) { color: var(--btn-ink); }
+.wp-block-buttons > .wp-block-button:is(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:is(:hover, :focus-visible):not(.has-background) { background-color: var(--btn-ink); }
+.wp-block-buttons > .wp-block-button:is(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:is(:hover, :focus-visible):not(.has-text-color) { color: var(--base); }
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-buttons > .wp-block-button > .wp-block-button__link { transition: none; }
+}
+
 /* Header search: set like the nav labels, a hairline box, the button an ink
-   block that turns accent-1 on hover like every other button. */
+   block that turns accent-1-text on hover like every other button. */
 .s-search { flex: 0 1 260px; min-inline-size: 0; }
 .s-search .wp-block-search__inside-wrapper {
   border: var(--hair) solid var(--contrast);
