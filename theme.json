@@ -390,14 +390,6 @@
 					"fontSize": "var(--wp--preset--font-size--d-2)"
 				}
 			},
-			"core/site-title": {
-				"typography": {
-					"fontFamily": "var(--wp--preset--font-family--display)",
-					"fontSize": "var(--wp--preset--font-size--d-xl)",
-					"fontWeight": "900",
-					"textTransform": "uppercase"
-				}
-			},
 			"core/gallery": {
 				"spacing": {
 					"margin": {
