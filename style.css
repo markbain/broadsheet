@@ -800,6 +800,10 @@ header > .s-navrow { margin-block-start: 0; }
    h3 size it was designed at. */
 h2.comment-reply-title { font-size: var(--wp--preset--font-size--d-2); }
 
+/* Core paints striped rows a fixed light grey, which a dark palette's light
+   text can't be read on. Stripe in the palette's own surface instead. */
+.wp-block-table.is-style-stripes tbody tr:nth-child(odd) { background-color: var(--surface); }
+
 /* Form fields take the page's own inks, so a dark variation never puts its
    light text on the browser's white field. */
 :where(input:not([type="submit"], [type="button"], [type="checkbox"], [type="radio"], [type="range"]), textarea, select) {
