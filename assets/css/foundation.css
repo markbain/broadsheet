@@ -86,7 +86,8 @@
   a { text-underline-offset: 4px; text-decoration-thickness: 2px; }
 
   :where(a):focus-visible,
-  :where(button, .wp-block-button__link):focus-visible {
+  :where(button, .wp-block-button__link):focus-visible,
+  :where(input, textarea, select):focus-visible {
     outline: 2px solid var(--accent-1);
     outline-offset: 3px;
   }
