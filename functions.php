@@ -172,6 +172,17 @@ if ( ! function_exists( 'broadsheet_block_styles' ) ) :
 			)
 		);
 
+		// Move one, the slip, as a style of the Site Title block, so the wordmark
+		// stays a real block an editor can restyle, remove or swap for a Site
+		// Logo. broadsheet_slip_site_title() builds the strips at render time.
+		register_block_style(
+			'core/site-title',
+			array(
+				'name'  => 'slip',
+				'label' => __( 'Slip', 'broadsheet' ),
+			)
+		);
+
 		// The two rules that separate everything: a heavy bar and a hairline.
 		register_block_style(
 			'core/separator',
@@ -333,3 +344,63 @@ if ( ! function_exists( 'broadsheet_blog_home_title' ) ) :
 	}
 endif;
 add_filter( 'render_block_core/query-title', 'broadsheet_blog_home_title', 10, 2 );
+
+if ( ! function_exists( 'broadsheet_slip_site_title' ) ) :
+	/**
+	 * Sets a Site Title block with the Slip style as the slip wordmark.
+	 *
+	 * The name is printed four times - a hidden sizer and three clipped strips,
+	 * all hidden from assistive technology - plus once as screen reader text.
+	 * The strips go inside the link when the title is linked, so the whole
+	 * wordmark is the hit target. See style.css, "Move one: the slip".
+	 *
+	 * The editor renders Site Title in JavaScript and never sees this, so it
+	 * shows the name in the display face without the strips.
+	 *
+	 * @since Broadsheet 1.1.0
+	 *
+	 * @param string $block_content The block's rendered HTML.
+	 * @param array  $block         The parsed block.
+	 * @return string
+	 */
+	function broadsheet_slip_site_title( $block_content, $block ) {
+		$class = $block['attrs']['className'] ?? '';
+		if ( ! preg_match( '/(^|\s)is-style-slip(\s|$)/', $class ) ) {
+			return $block_content;
+		}
+
+		$name = esc_html( get_bloginfo( 'name' ) );
+		if ( '' === $name ) {
+			return $block_content;
+		}
+
+		$strips = sprintf(
+			'<span class="screen-reader-text">%1$s</span>' .
+			'<span class="s-slip__sizer" aria-hidden="true">%1$s</span>' .
+			'<span class="s-slip__a" aria-hidden="true">%1$s</span>' .
+			'<span class="s-slip__b" aria-hidden="true">%1$s</span>' .
+			'<span class="s-slip__c" aria-hidden="true">%1$s</span>',
+			$name
+		);
+
+		// The innermost element holding the name: the link, or the wrapper.
+		$pattern = false !== strpos( $block_content, '<a ' )
+			? '#(<a\b[^>]*>)(.*?)(</a>)#s'
+			: '#(<(?:p|h[1-6])\b[^>]*>)(.*?)(</(?:p|h[1-6])>)#s';
+
+		$slipped = preg_replace_callback(
+			$pattern,
+			static function ( $m ) use ( $strips ) {
+				$open = new WP_HTML_Tag_Processor( $m[1] );
+				$open->next_tag();
+				$open->add_class( 's-slip' );
+				return $open->get_updated_html() . $strips . $m[3];
+			},
+			$block_content,
+			1
+		);
+
+		return null === $slipped ? $block_content : $slipped;
+	}
+endif;
+add_filter( 'render_block_core/site-title', 'broadsheet_slip_site_title', 10, 2 );

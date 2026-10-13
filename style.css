@@ -64,13 +64,14 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
    as if the sheet moved through the press. Offsets are in em, so the effect
    scales with the type instead of breaking at small sizes.
 
-   Markup (see the wordmark pattern):
-     <span class="s-slip u-disp">
+   A Site Title block with the Slip style gets this markup at render time
+   (broadsheet_slip_site_title() in functions.php):
+     <a class="s-slip">
        <span class="s-slip__sizer">Broadsheet</span>
        <span class="s-slip__a">Broadsheet</span>
        <span class="s-slip__b">Broadsheet</span>
        <span class="s-slip__c">Broadsheet</span>
-     </span>
+     </a>
 
    Below about 22px the three strips merge and the word stops reading. Use
    .s-slip--flat there.
@@ -88,6 +89,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
    everywhere else. The slip offsets are in em, so the strips scale with it. */
 .s-slip--masthead { font-size: var(--wp--preset--font-size--d-xl); }
 body:not(.home) .s-slip--masthead { font-size: var(--wp--preset--font-size--d-2); }
+.wp-block-site-title.is-style-slip { margin: 0; line-height: 1; }
 .s-slip > span { position: absolute; inset-block-start: 0; inset-inline-start: 0; display: block; }
 /* Must out-specify `.s-slip > span` above, or every strip goes absolute and
    the wordmark collapses to zero height. */
@@ -96,7 +98,7 @@ body:not(.home) .s-slip--masthead { font-size: var(--wp--preset--font-size--d-2)
 .s-slip__b { clip-path: inset(42% 0 24% 0); color: var(--accent); transform: translateX(var(--wp--custom--slip--offset)); }
 .s-slip__c { clip-path: inset(76% 0 0 0);   color: var(--contrast); transform: translateX(var(--wp--custom--slip--counter)); }
 
-.s-slip--flat > span { position: relative; clip-path: none; transform: none; }
+.s-slip--flat > span[aria-hidden] { position: relative; clip-path: none; transform: none; }
 .s-slip--flat > .s-slip__sizer,
 .s-slip--flat > .s-slip__b,
 .s-slip--flat > .s-slip__c { display: none; }
@@ -435,6 +437,11 @@ ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li 
    -------------------------------------------------------------------------- */
 
 .s-masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+/* A Site Logo, once one is set, replaces the wordmark: the Site Logo block
+   renders nothing until there is a logo, so the name shows only without one.
+   The logo's alt text is the site name, so nothing is lost to a screen reader. */
+.s-brand .wp-block-site-logo { margin: 0; }
+.s-brand:has(.custom-logo) .wp-block-site-title { display: none; }
 /* The nav row sits straight under the heavy bar; its own padding is the gap. */
 header > .s-navrow { margin-block-start: 0; }
 .s-bar { height: clamp(5px, 0.5vw, 7px); background: var(--contrast); }
