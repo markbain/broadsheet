@@ -99,9 +99,9 @@
     clip-path: inset(50%); white-space: nowrap;
   }
   .skip-link:focus {
-    position: fixed; inset-block-start: 8px; inset-inline-start: 8px;
+    position: fixed; inset-block-start: 0.5rem; inset-inline-start: 0.5rem;
     width: auto; height: auto; clip-path: none;
-    z-index: 999; background: var(--contrast); color: var(--base); padding: 12px 16px;
+    z-index: 999; background: var(--contrast); color: var(--base); padding: 0.75rem 1rem;
   }
 }
 
@@ -160,10 +160,10 @@
 }
 
 /* At small widths, reduce aligned image width to prevent overflow */
-@media (max-width: 640px) {
+@media (max-width: 40em) {
   .wp-block-post-content .wp-block-image.alignleft,
   .wp-block-post-content .wp-block-image.alignright {
-    max-width: calc(100% - 20px);
+    max-width: calc(100% - 1.25rem);
     margin-left: auto;
     margin-right: auto;
     float: none;
