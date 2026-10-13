@@ -5,8 +5,8 @@
 		"appearanceTools": true,
 		"useRootPaddingAwareAlignments": true,
 		"layout": {
-			"contentSize": "1248px",
-			"wideSize": "1440px"
+			"contentSize": "78rem",
+			"wideSize": "90rem"
 		},
 		"color": {
 			"defaultPalette": false,
@@ -248,7 +248,7 @@
 			"backgroundImage": false
 		},
 		"custom": {
-			"gutter": "clamp(20px, 5.2vw, 96px)",
+			"gutter": "clamp(1.25rem, 5.2vw, 6rem)",
 			"hairline": "1px",
 			"button": {
 				"paddingBlock": "1.25em",

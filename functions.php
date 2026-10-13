@@ -213,7 +213,7 @@ if ( ! function_exists( 'broadsheet_block_styles' ) ) :
 				}
 
 				ul.is-style-ruled-list li {
-					padding-block: 12px;
+					padding-block: 0.75rem;
 					border-block-end: 1px solid currentColor;
 				}',
 			)
@@ -261,7 +261,7 @@ if ( ! function_exists( 'broadsheet_paginated_post_links' ) ) :
 				// Wrapped so the stylesheet can set the bracket on the right side of each.
 				'nextpagelink'     => '<span class="s-pager-next">' . esc_html__( 'Next page', 'broadsheet' ) . '</span>',
 				'previouspagelink' => '<span class="s-pager-prev">' . esc_html__( 'Previous page', 'broadsheet' ) . '</span>',
-				'before'           => '<div class="wp-block-group s-link" style="display:flex;justify-content:space-between;gap:20px">',
+				'before'           => '<div class="wp-block-group s-link" style="display:flex;justify-content:space-between;gap:1.25rem">',
 				'link_before'      => '<span class="u-lab">',
 				'link_after'       => '</span>',
 				'after'            => '</div>',

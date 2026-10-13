@@ -18,11 +18,11 @@
 
 	<!-- wp:columns {"className":"s-footer__cols","style":{"spacing":{"blockGap":{"top":"var:preset|spacing|40","left":"0"}}}} -->
 	<div class="wp-block-columns s-footer__cols">
-		<!-- wp:column {"width":"380px","className":"s-footer__brand"} -->
-		<div class="wp-block-column s-footer__brand" style="flex-basis:380px">
+		<!-- wp:column {"width":"23.75rem","className":"s-footer__brand"} -->
+		<div class="wp-block-column s-footer__brand" style="flex-basis:23.75rem">
 			<!-- wp:pattern {"slug":"broadsheet/wordmark-small"} /-->
 
-			<!-- wp:site-tagline {"className":"u-lab","style":{"spacing":{"margin":{"top":"22px","bottom":"0"}}}} /-->
+			<!-- wp:site-tagline {"className":"u-lab","style":{"spacing":{"margin":{"top":"1.375rem","bottom":"0"}}}} /-->
 		</div>
 		<!-- /wp:column -->
 

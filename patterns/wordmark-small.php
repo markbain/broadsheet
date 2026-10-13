@@ -13,4 +13,4 @@
  */
 
 ?>
-<!-- wp:site-title {"level":0,"isLink":false,"className":"is-style-slip u-disp","style":{"typography":{"fontSize":"clamp(34px, 3.4vw, 44px)"}}} /-->
+<!-- wp:site-title {"level":0,"isLink":false,"className":"is-style-slip u-disp","style":{"typography":{"fontSize":"clamp(2.125rem, 3.4vw, 2.75rem)"}}} /-->
