@@ -383,7 +383,9 @@ ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li 
 }
 
 /* Small parts */
-.s-tag { display: inline-block; background: var(--accent); color: var(--base); padding: 9px 14px; }
+/* Set on --accent-text, not --accent: the tag is small type, and cream on the
+   bright accent-1 falls short of 4.5:1. */
+.s-tag { display: inline-block; background: var(--accent-text); color: var(--base); padding: 9px 14px; }
 .s-chip { display: inline-block; border: var(--hair) solid var(--contrast); padding: 7px 12px; }
 .s-chip.is-on { background: var(--contrast); color: var(--base); }
 
@@ -547,6 +549,12 @@ header > .s-navrow { margin-block-start: 0; }
   text-transform: uppercase;
 }
 .s-search .wp-block-search__input::placeholder { color: var(--muted); opacity: 1; }
+/* Core drops the field's outline when the button sits inside the box; ring
+   the whole box instead, matching every other focus outline. */
+.wp-block-search__button-inside .wp-block-search__inside-wrapper:has(.wp-block-search__input:focus-visible) {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 3px;
+}
 .s-search .wp-block-search__button {
   margin: 0;
   padding-inline: 12px;
@@ -787,6 +795,25 @@ header > .s-navrow { margin-block-start: 0; }
 /* "(c) year" and the linked site title read as one line: a word space, not
    the flex block gap. */
 .s-colophon__copy { gap: 0.5em; }
+
+/* "Leave a Reply" is an h2 for the outline (see functions.php) but keeps the
+   h3 size it was designed at. */
+h2.comment-reply-title { font-size: var(--wp--preset--font-size--d-2); }
+
+/* Form fields take the page's own inks, so a dark variation never puts its
+   light text on the browser's white field. */
+:where(input:not([type="submit"], [type="button"], [type="checkbox"], [type="radio"], [type="range"]), textarea, select) {
+  background-color: var(--base);
+  color: var(--contrast);
+  border: var(--hair) solid var(--contrast);
+}
+
+/* Archive, category, page list and RSS links are set in the small label face; the padding
+   keeps each one a 24px touch target (WCAG 2.2, 2.5.8). */
+:is(.wp-block-archives-list, .wp-block-categories-list, .wp-block-page-list:not(.wp-block-navigation *), .wp-block-rss__item-title) a { display: inline-block; padding-block: 0.4em; }
+/* Breadcrumbs wrap onto a second line on a phone; the padding keeps the two
+   rows of links 24px targets without spreading a one-line trail. */
+.wp-block-breadcrumbs a { display: inline-block; padding-block: 0.2em; }
 
 /* The search block, flattened. */
 .wp-block-search__input {

@@ -404,3 +404,53 @@ if ( ! function_exists( 'broadsheet_slip_site_title' ) ) :
 	}
 endif;
 add_filter( 'render_block_core/site-title', 'broadsheet_slip_site_title', 10, 2 );
+
+if ( ! function_exists( 'broadsheet_comment_form_heading' ) ) :
+	/**
+	 * Sets the comment form's "Leave a Reply" as an h2, not core's h3.
+	 *
+	 * On a post with no comments there is no Comments title, so an h3 would
+	 * follow the post's h1 directly and skip a level. As an h2 it is a sibling
+	 * of the Comments title when there is one.
+	 *
+	 * @since Broadsheet 1.1.0
+	 *
+	 * @param array $defaults The comment form arguments.
+	 * @return array
+	 */
+	function broadsheet_comment_form_heading( $defaults ) {
+		$defaults['title_reply_before'] = '<h2 id="reply-title" class="comment-reply-title">';
+		$defaults['title_reply_after']  = '</h2>';
+		return $defaults;
+	}
+endif;
+add_filter( 'comment_form_defaults', 'broadsheet_comment_form_heading' );
+
+if ( ! function_exists( 'broadsheet_focusable_pre' ) ) :
+	/**
+	 * Puts every pre in post content and comments in the tab order.
+	 *
+	 * Code never wraps (see foundation.css), so a long line scrolls sideways,
+	 * and a keyboard user can only scroll a region that takes focus.
+	 *
+	 * @since Broadsheet 1.1.0
+	 *
+	 * @param string $content The post content or comment text.
+	 * @return string
+	 */
+	function broadsheet_focusable_pre( $content ) {
+		if ( false === stripos( $content, '<pre' ) ) {
+			return $content;
+		}
+
+		$tags = new WP_HTML_Tag_Processor( $content );
+		while ( $tags->next_tag( 'pre' ) ) {
+			if ( null === $tags->get_attribute( 'tabindex' ) ) {
+				$tags->set_attribute( 'tabindex', '0' );
+			}
+		}
+		return $tags->get_updated_html();
+	}
+endif;
+add_filter( 'the_content', 'broadsheet_focusable_pre', 20 );
+add_filter( 'comment_text', 'broadsheet_focusable_pre', 20 );

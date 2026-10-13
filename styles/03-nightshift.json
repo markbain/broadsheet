@@ -27,12 +27,12 @@
 				},
 				{
 					"slug": "accent-2",
-					"color": "#5C6BFF",
+					"color": "#6574FF",
 					"name": "Accent 2"
 				},
 				{
 					"slug": "accent-3",
-					"color": "#F5C518",
+					"color": "#0E1440",
 					"name": "Accent 3"
 				},
 				{
@@ -52,6 +52,7 @@
 		"color": {
 			"background": "var(--wp--preset--color--base)",
 			"text": "var(--wp--preset--color--contrast)"
-		}
+		},
+		"css": "::selection { background: var(--wp--preset--color--accent-2); color: var(--wp--preset--color--base); }"
 	}
 }
