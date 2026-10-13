@@ -6,7 +6,7 @@
  * Categories: broadsheet_part
  * Inserter: no
  * Viewport width: 1400
- * Description: The Site Logo, if one is set, and the Site Title in the Slip style - three strips, the middle one pushed sideways.
+ * Description: The Site Title in the Slip style - three strips, the middle one pushed sideways - or the Site Logo instead, once one is set.
  *
  * @package Broadsheet
  * @since Broadsheet 1.0.0

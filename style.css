@@ -437,10 +437,11 @@ ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li 
    -------------------------------------------------------------------------- */
 
 .s-masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
-/* A Site Logo, once one is set, sits beside the wordmark. Remove the Site
-   Title in the Editor to let the logo stand alone. */
-.s-brand { gap: 24px; }
+/* A Site Logo, once one is set, replaces the wordmark: the Site Logo block
+   renders nothing until there is a logo, so the name shows only without one.
+   The logo's alt text is the site name, so nothing is lost to a screen reader. */
 .s-brand .wp-block-site-logo { margin: 0; }
+.s-brand:has(.custom-logo) .wp-block-site-title { display: none; }
 /* The nav row sits straight under the heavy bar; its own padding is the gap. */
 header > .s-navrow { margin-block-start: 0; }
 .s-bar { height: clamp(5px, 0.5vw, 7px); background: var(--contrast); }
