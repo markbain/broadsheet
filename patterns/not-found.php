@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: 404 content
- * Slug: broadsheet/not-found
+ * Slug: bd324-broadsheet/not-found
  * Keywords: 404, not found, error, search
- * Categories: broadsheet_part
+ * Categories: bd324_broadsheet_part
  * Inserter: no
  * Viewport width: 1400
  * Description: The heading, explanation and search field shown on a 404.

@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Hairline rows
- * Slug: broadsheet/rows
+ * Slug: bd324-broadsheet/rows
  * Keywords: list, rows, index, hairline
- * Categories: broadsheet_section
+ * Categories: bd324_broadsheet_section
  * Block Types: core/list
  * Viewport width: 1400
  * Description: Stacked full-width rows, name at the left and a bracket parked at the right.

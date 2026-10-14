@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Hero - three cells
- * Slug: broadsheet/hero
+ * Slug: bd324-broadsheet/hero
  * Keywords: hero, header, grid, three column
- * Categories: broadsheet_section
+ * Categories: bd324_broadsheet_section
  * Viewport width: 1400
  * Description: Photograph, statement and an open-call panel, in one hairline grid.
  *
@@ -15,7 +15,7 @@
 <!-- wp:group {"className":"s-grid s-grid--hero s-ink-accent","layout":{"type":"default"}} -->
 <div class="wp-block-group s-grid s-grid--hero s-ink-accent">
 
-	<!-- wp:pattern {"slug":"broadsheet/plate"} /-->
+	<!-- wp:pattern {"slug":"bd324-broadsheet/plate"} /-->
 
 	<!-- wp:group {"className":"s-hero-copy s-cell","layout":{"type":"default"}} -->
 	<div class="wp-block-group s-hero-copy s-cell">
@@ -27,7 +27,7 @@
 		<p><?php esc_html_e( 'One short paragraph underneath, deliberately quiet. It is set small against a very loud heading, and it should not try to compete.', 'broadsheet' ); ?></p>
 		<!-- /wp:paragraph -->
 
-		<!-- wp:pattern {"slug":"broadsheet/read-more"} /-->
+		<!-- wp:pattern {"slug":"bd324-broadsheet/read-more"} /-->
 	</div>
 	<!-- /wp:group -->
 

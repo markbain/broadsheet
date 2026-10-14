@@ -65,7 +65,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
    scales with the type instead of breaking at small sizes.
 
    A Site Title block with the Slip style gets this markup at render time
-   (broadsheet_slip_site_title() in functions.php):
+   (bd324_broadsheet_slip_site_title() in functions.php):
      <a class="s-slip">
        <span class="s-slip__sizer">Broadsheet</span>
        <span class="s-slip__a">Broadsheet</span>

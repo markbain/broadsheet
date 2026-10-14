@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Footer
- * Slug: broadsheet/footer
+ * Slug: bd324-broadsheet/footer
  * Keywords: footer, colophon, links
- * Categories: broadsheet_part
+ * Categories: bd324_broadsheet_part
  * Block Types: core/template-part/footer
  * Viewport width: 1400
  * Description: Wordmark and tagline beside the site menu, with the colophon below.
@@ -20,7 +20,7 @@
 	<div class="wp-block-columns s-footer__cols">
 		<!-- wp:column {"width":"23.75rem","className":"s-footer__brand"} -->
 		<div class="wp-block-column s-footer__brand" style="flex-basis:23.75rem">
-			<!-- wp:pattern {"slug":"broadsheet/wordmark-small"} /-->
+			<!-- wp:pattern {"slug":"bd324-broadsheet/wordmark-small"} /-->
 
 			<!-- wp:site-tagline {"className":"u-lab","style":{"spacing":{"margin":{"top":"1.375rem","bottom":"0"}}}} /-->
 		</div>
@@ -38,7 +38,7 @@
 	<hr class="wp-block-separator has-alpha-channel-opacity is-style-hairline" style="margin-top:var(--wp--preset--spacing--40);margin-bottom:var(--wp--preset--spacing--20)"/>
 	<!-- /wp:separator -->
 
-	<!-- wp:pattern {"slug":"broadsheet/colophon"} /-->
+	<!-- wp:pattern {"slug":"bd324-broadsheet/colophon"} /-->
 
 </footer>
 <!-- /wp:group -->
