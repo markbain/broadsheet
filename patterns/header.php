@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Header
- * Slug: broadsheet/header
+ * Slug: bd324-broadsheet/header
  * Keywords: header, masthead, wordmark, navigation
- * Categories: broadsheet_part
+ * Categories: bd324_broadsheet_part
  * Block Types: core/template-part/header
  * Viewport width: 1400
  * Description: Wordmark, tagline, the heavy bar, and the navigation row with search.
@@ -18,7 +18,7 @@
 
 	<!-- wp:group {"className":"s-masthead","layout":{"type":"default"}} -->
 	<div class="wp-block-group s-masthead">
-		<!-- wp:pattern {"slug":"broadsheet/wordmark"} /-->
+		<!-- wp:pattern {"slug":"bd324-broadsheet/wordmark"} /-->
 
 		<!-- wp:site-tagline {"textAlign":"right","className":"u-lab s-tagline"} /-->
 	</div>

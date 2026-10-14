@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! function_exists( 'broadsheet_enqueue_styles' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_enqueue_styles' ) ) :
 	/**
 	 * Enqueues the theme stylesheets on the front.
 	 *
@@ -28,37 +28,37 @@ if ( ! function_exists( 'broadsheet_enqueue_styles' ) ) :
 	 *
 	 * @return void
 	 */
-	function broadsheet_enqueue_styles() {
+	function bd324_broadsheet_enqueue_styles() {
 		$version = wp_get_theme()->get( 'Version' );
 
 		wp_enqueue_style(
-			'broadsheet-foundation',
+			'bd324-broadsheet-foundation',
 			get_parent_theme_file_uri( 'assets/css/foundation.css' ),
 			array(),
 			$version
 		);
 		wp_style_add_data(
-			'broadsheet-foundation',
+			'bd324-broadsheet-foundation',
 			'path',
 			get_parent_theme_file_path( 'assets/css/foundation.css' )
 		);
 
 		wp_enqueue_style(
-			'broadsheet-style',
+			'bd324-broadsheet-style',
 			get_parent_theme_file_uri( 'style.css' ),
-			array( 'broadsheet-foundation' ),
+			array( 'bd324-broadsheet-foundation' ),
 			$version
 		);
 		wp_style_add_data(
-			'broadsheet-style',
+			'bd324-broadsheet-style',
 			'path',
 			get_parent_theme_file_path( 'style.css' )
 		);
 	}
 endif;
-add_action( 'wp_enqueue_scripts', 'broadsheet_enqueue_styles' );
+add_action( 'wp_enqueue_scripts', 'bd324_broadsheet_enqueue_styles' );
 
-if ( ! function_exists( 'broadsheet_editor_style' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_editor_style' ) ) :
 	/**
 	 * Enqueues the same two stylesheets in the editors, so what an editor sees
 	 * matches the front end.
@@ -67,7 +67,7 @@ if ( ! function_exists( 'broadsheet_editor_style' ) ) :
 	 *
 	 * @return void
 	 */
-	function broadsheet_editor_style() {
+	function bd324_broadsheet_editor_style() {
 		add_editor_style(
 			array(
 				'assets/css/foundation.css',
@@ -76,9 +76,9 @@ if ( ! function_exists( 'broadsheet_editor_style' ) ) :
 		);
 	}
 endif;
-add_action( 'after_setup_theme', 'broadsheet_editor_style' );
+add_action( 'after_setup_theme', 'bd324_broadsheet_editor_style' );
 
-if ( ! function_exists( 'broadsheet_pattern_categories' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_pattern_categories' ) ) :
 	/**
 	 * Registers pattern categories.
 	 *
@@ -86,9 +86,9 @@ if ( ! function_exists( 'broadsheet_pattern_categories' ) ) :
 	 *
 	 * @return void
 	 */
-	function broadsheet_pattern_categories() {
+	function bd324_broadsheet_pattern_categories() {
 		register_block_pattern_category(
-			'broadsheet_section',
+			'bd324_broadsheet_section',
 			array(
 				'label'       => __( 'Broadsheet sections', 'broadsheet' ),
 				'description' => __( 'Bands, hairline grids and ledgers.', 'broadsheet' ),
@@ -96,7 +96,7 @@ if ( ! function_exists( 'broadsheet_pattern_categories' ) ) :
 		);
 
 		register_block_pattern_category(
-			'broadsheet_part',
+			'bd324_broadsheet_part',
 			array(
 				'label'       => __( 'Broadsheet parts', 'broadsheet' ),
 				'description' => __( 'Small pieces: the wordmark, a bracket link, a photograph plate.', 'broadsheet' ),
@@ -104,9 +104,9 @@ if ( ! function_exists( 'broadsheet_pattern_categories' ) ) :
 		);
 	}
 endif;
-add_action( 'init', 'broadsheet_pattern_categories' );
+add_action( 'init', 'bd324_broadsheet_pattern_categories' );
 
-if ( ! function_exists( 'broadsheet_remove_core_patterns' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_remove_core_patterns' ) ) :
 	/**
 	 * Hides the bundled core patterns.
 	 *
@@ -118,13 +118,13 @@ if ( ! function_exists( 'broadsheet_remove_core_patterns' ) ) :
 	 *
 	 * @return void
 	 */
-	function broadsheet_remove_core_patterns() {
+	function bd324_broadsheet_remove_core_patterns() {
 		remove_theme_support( 'core-block-patterns' );
 	}
 endif;
-add_action( 'after_setup_theme', 'broadsheet_remove_core_patterns' );
+add_action( 'after_setup_theme', 'bd324_broadsheet_remove_core_patterns' );
 
-if ( ! function_exists( 'broadsheet_block_styles' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_block_styles' ) ) :
 	/**
 	 * Registers custom block styles.
 	 *
@@ -136,7 +136,7 @@ if ( ! function_exists( 'broadsheet_block_styles' ) ) :
 	 *
 	 * @return void
 	 */
-	function broadsheet_block_styles() {
+	function bd324_broadsheet_block_styles() {
 		$inks = array(
 			'ink-accent'   => __( 'Ink: accent', 'broadsheet' ),
 			'ink-secondary'  => __( 'Ink: secondary', 'broadsheet' ),
@@ -174,7 +174,7 @@ if ( ! function_exists( 'broadsheet_block_styles' ) ) :
 
 		// Move one, the slip, as a style of the Site Title block, so the wordmark
 		// stays a real block an editor can restyle, remove or swap for a Site
-		// Logo. broadsheet_slip_site_title() builds the strips at render time.
+		// Logo. bd324_broadsheet_slip_site_title() builds the strips at render time.
 		register_block_style(
 			'core/site-title',
 			array(
@@ -220,9 +220,9 @@ if ( ! function_exists( 'broadsheet_block_styles' ) ) :
 		);
 	}
 endif;
-add_action( 'init', 'broadsheet_block_styles' );
+add_action( 'init', 'bd324_broadsheet_block_styles' );
 
-if ( ! function_exists( 'broadsheet_paginated_post_links' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_paginated_post_links' ) ) :
 	/**
 	 * Adds working next/previous links to a paginated single post.
 	 *
@@ -243,7 +243,7 @@ if ( ! function_exists( 'broadsheet_paginated_post_links' ) ) :
 	 * @param string $content The current page's post content.
 	 * @return string
 	 */
-	function broadsheet_paginated_post_links( $content ) {
+	function bd324_broadsheet_paginated_post_links( $content ) {
 		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
 			return $content;
 		}
@@ -271,10 +271,10 @@ if ( ! function_exists( 'broadsheet_paginated_post_links' ) ) :
 		return $content . $links;
 	}
 endif;
-add_filter( 'the_content', 'broadsheet_paginated_post_links' );
+add_filter( 'the_content', 'bd324_broadsheet_paginated_post_links' );
 
 
-if ( ! function_exists( 'broadsheet_caption_width' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_caption_width' ) ) :
 	/**
 	 * Drops the inline width from classic [caption] figures.
 	 *
@@ -288,13 +288,13 @@ if ( ! function_exists( 'broadsheet_caption_width' ) ) :
 	 *
 	 * @return int Zero, which tells core to omit the style attribute.
 	 */
-	function broadsheet_caption_width() {
+	function bd324_broadsheet_caption_width() {
 		return 0;
 	}
 endif;
-add_filter( 'img_caption_shortcode_width', 'broadsheet_caption_width' );
+add_filter( 'img_caption_shortcode_width', 'bd324_broadsheet_caption_width' );
 
-if ( ! function_exists( 'broadsheet_blog_home_title' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_blog_home_title' ) ) :
 	/**
 	 * Gives the blog home a title: the posts page's own.
 	 *
@@ -311,7 +311,7 @@ if ( ! function_exists( 'broadsheet_blog_home_title' ) ) :
 	 * @param array  $block         The parsed block.
 	 * @return string
 	 */
-	function broadsheet_blog_home_title( $block_content, $block ) {
+	function bd324_broadsheet_blog_home_title( $block_content, $block ) {
 		if ( '' !== trim( $block_content ) || ! is_home() ) {
 			return $block_content;
 		}
@@ -343,9 +343,9 @@ if ( ! function_exists( 'broadsheet_blog_home_title' ) ) :
 		);
 	}
 endif;
-add_filter( 'render_block_core/query-title', 'broadsheet_blog_home_title', 10, 2 );
+add_filter( 'render_block_core/query-title', 'bd324_broadsheet_blog_home_title', 10, 2 );
 
-if ( ! function_exists( 'broadsheet_slip_site_title' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_slip_site_title' ) ) :
 	/**
 	 * Sets a Site Title block with the Slip style as the slip wordmark.
 	 *
@@ -363,7 +363,7 @@ if ( ! function_exists( 'broadsheet_slip_site_title' ) ) :
 	 * @param array  $block         The parsed block.
 	 * @return string
 	 */
-	function broadsheet_slip_site_title( $block_content, $block ) {
+	function bd324_broadsheet_slip_site_title( $block_content, $block ) {
 		$class = $block['attrs']['className'] ?? '';
 		if ( ! preg_match( '/(^|\s)is-style-slip(\s|$)/', $class ) ) {
 			return $block_content;
@@ -403,9 +403,9 @@ if ( ! function_exists( 'broadsheet_slip_site_title' ) ) :
 		return null === $slipped ? $block_content : $slipped;
 	}
 endif;
-add_filter( 'render_block_core/site-title', 'broadsheet_slip_site_title', 10, 2 );
+add_filter( 'render_block_core/site-title', 'bd324_broadsheet_slip_site_title', 10, 2 );
 
-if ( ! function_exists( 'broadsheet_comment_form_heading' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_comment_form_heading' ) ) :
 	/**
 	 * Sets the comment form's "Leave a Reply" as an h2, not core's h3.
 	 *
@@ -418,15 +418,15 @@ if ( ! function_exists( 'broadsheet_comment_form_heading' ) ) :
 	 * @param array $defaults The comment form arguments.
 	 * @return array
 	 */
-	function broadsheet_comment_form_heading( $defaults ) {
+	function bd324_broadsheet_comment_form_heading( $defaults ) {
 		$defaults['title_reply_before'] = '<h2 id="reply-title" class="comment-reply-title">';
 		$defaults['title_reply_after']  = '</h2>';
 		return $defaults;
 	}
 endif;
-add_filter( 'comment_form_defaults', 'broadsheet_comment_form_heading' );
+add_filter( 'comment_form_defaults', 'bd324_broadsheet_comment_form_heading' );
 
-if ( ! function_exists( 'broadsheet_focusable_pre' ) ) :
+if ( ! function_exists( 'bd324_broadsheet_focusable_pre' ) ) :
 	/**
 	 * Puts every pre in post content and comments in the tab order.
 	 *
@@ -438,7 +438,7 @@ if ( ! function_exists( 'broadsheet_focusable_pre' ) ) :
 	 * @param string $content The post content or comment text.
 	 * @return string
 	 */
-	function broadsheet_focusable_pre( $content ) {
+	function bd324_broadsheet_focusable_pre( $content ) {
 		if ( false === stripos( $content, '<pre' ) ) {
 			return $content;
 		}
@@ -452,5 +452,5 @@ if ( ! function_exists( 'broadsheet_focusable_pre' ) ) :
 		return $tags->get_updated_html();
 	}
 endif;
-add_filter( 'the_content', 'broadsheet_focusable_pre', 20 );
-add_filter( 'comment_text', 'broadsheet_focusable_pre', 20 );
+add_filter( 'the_content', 'bd324_broadsheet_focusable_pre', 20 );
+add_filter( 'comment_text', 'bd324_broadsheet_focusable_pre', 20 );

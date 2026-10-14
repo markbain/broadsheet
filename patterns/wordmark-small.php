@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Wordmark, small
- * Slug: broadsheet/wordmark-small
+ * Slug: bd324-broadsheet/wordmark-small
  * Keywords: logo, wordmark, footer
- * Categories: broadsheet_part
+ * Categories: bd324_broadsheet_part
  * Inserter: no
  * Viewport width: 800
  * Description: The Site Title in the Slip style, at footer size.

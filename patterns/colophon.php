@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Colophon
- * Slug: broadsheet/colophon
+ * Slug: bd324-broadsheet/colophon
  * Keywords: footer, copyright, legal
- * Categories: broadsheet_part
+ * Categories: bd324_broadsheet_part
  * Inserter: no
  * Viewport width: 1400
  * Description: Copyright line naming the site (a live, linked Site Title), and the privacy policy link once the site has set one.

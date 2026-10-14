@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Section with rows
- * Slug: broadsheet/section-rows
+ * Slug: bd324-broadsheet/section-rows
  * Keywords: section, list, rows, index
- * Categories: broadsheet_section
+ * Categories: bd324_broadsheet_section
  * Viewport width: 1400
  * Description: A section title and quiet paragraph on the left, a set of hairline rows on the right.
  *
@@ -28,7 +28,7 @@
 
 	<!-- wp:column -->
 	<div class="wp-block-column">
-		<!-- wp:pattern {"slug":"broadsheet/rows"} /-->
+		<!-- wp:pattern {"slug":"bd324-broadsheet/rows"} /-->
 	</div>
 	<!-- /wp:column -->
 </div>
