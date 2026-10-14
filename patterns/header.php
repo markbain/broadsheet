@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:group {"tagName":"header","style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"0"}}},"layout":{"type":"constrained"}} -->
-<header class="wp-block-group" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:0">
+<!-- wp:group {"tagName":"header","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"0"}}},"layout":{"type":"constrained"}} -->
+<header class="wp-block-group" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:0">
 
 	<!-- wp:group {"className":"s-masthead","layout":{"type":"default"}} -->
 	<div class="wp-block-group s-masthead">

@@ -6,19 +6,17 @@
  * Categories: broadsheet_part
  * Inserter: no
  * Viewport width: 1400
- * Description: The site name set as the slip - three strips, the middle one pushed sideways.
+ * Description: The Site Title in the Slip style - three strips, the middle one pushed sideways - or the Site Logo instead, once one is set.
  *
  * @package Broadsheet
  * @since Broadsheet 1.0.0
  */
 
-$broadsheet_name = get_bloginfo( 'name' );
 ?>
-<!-- wp:html -->
-<a class="s-slip u-disp" href="<?php echo esc_url( home_url( '/' ) ); ?>" style="font-size: var(--wp--preset--font-size--d-xl);" aria-label="<?php echo esc_attr( $broadsheet_name ); ?>">
-	<span class="s-slip__sizer" aria-hidden="true"><?php echo esc_html( $broadsheet_name ); ?></span>
-	<span class="s-slip__a" aria-hidden="true"><?php echo esc_html( $broadsheet_name ); ?></span>
-	<span class="s-slip__b" aria-hidden="true"><?php echo esc_html( $broadsheet_name ); ?></span>
-	<span class="s-slip__c" aria-hidden="true"><?php echo esc_html( $broadsheet_name ); ?></span>
-</a>
-<!-- /wp:html -->
+<!-- wp:group {"className":"s-brand","layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"bottom"}} -->
+<div class="wp-block-group s-brand">
+	<!-- wp:site-logo /-->
+
+	<!-- wp:site-title {"level":0,"className":"is-style-slip u-disp s-slip--masthead"} /-->
+</div>
+<!-- /wp:group -->

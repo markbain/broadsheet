@@ -6,44 +6,44 @@
 		"color": {
 			"palette": [
 				{
-					"slug": "paper",
+					"slug": "base",
 					"color": "#F1F2EC",
-					"name": "Paper"
+					"name": "Base"
 				},
 				{
-					"slug": "ink",
+					"slug": "contrast",
 					"color": "#101310",
-					"name": "Ink"
+					"name": "Contrast"
 				},
 				{
-					"slug": "red",
+					"slug": "accent-1",
 					"color": "#0B7A3B",
-					"name": "Red"
+					"name": "Accent 1"
 				},
 				{
-					"slug": "red-text",
+					"slug": "accent-1-text",
 					"color": "#0A5F2E",
-					"name": "Red, text"
+					"name": "Accent 1 (text)"
 				},
 				{
-					"slug": "blue",
+					"slug": "accent-2",
 					"color": "#1F3AA8",
-					"name": "Blue"
+					"name": "Accent 2"
 				},
 				{
-					"slug": "yellow",
+					"slug": "accent-3",
 					"color": "#EFE04A",
-					"name": "Yellow"
+					"name": "Accent 3"
 				},
 				{
-					"slug": "quiet",
+					"slug": "muted",
 					"color": "#6A6F63",
-					"name": "Quiet"
+					"name": "Muted"
 				},
 				{
-					"slug": "plate",
+					"slug": "surface",
 					"color": "#DBDDD2",
-					"name": "Plate"
+					"name": "Surface"
 				}
 			]
 		}

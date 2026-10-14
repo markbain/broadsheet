@@ -48,15 +48,15 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   letter-spacing: 0.005em;
 }
 
-.u-quiet { color: var(--quiet); }
+.u-quiet { color: var(--muted); }
 .u-accent { color: var(--accent-text); }
 .u-plain { text-decoration: none; }
 .u-plain:hover { text-decoration: underline; }
 
 /* Move three: one ink per band. Set the section's ink, never mix two. */
-.s-ink-red,   .is-style-ink-red   { --accent: var(--red);  --accent-text: var(--red-text); }
-.s-ink-blue,  .is-style-ink-blue  { --accent: var(--blue); --accent-text: var(--blue); }
-.s-ink-black, .is-style-ink-black { --accent: var(--ink);  --accent-text: var(--ink); }
+.s-ink-accent,   .is-style-ink-accent   { --accent: var(--accent-1);  --accent-text: var(--accent-1-text); }
+.s-ink-secondary,  .is-style-ink-secondary  { --accent: var(--accent-2); --accent-text: var(--accent-2); }
+.s-ink-contrast, .is-style-ink-contrast { --accent: var(--contrast);  --accent-text: var(--contrast); }
 
 /* --------------------------------------------------------------------------
    Move one: the slip.
@@ -64,13 +64,14 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
    as if the sheet moved through the press. Offsets are in em, so the effect
    scales with the type instead of breaking at small sizes.
 
-   Markup (see the wordmark pattern):
-     <span class="s-slip u-disp">
+   A Site Title block with the Slip style gets this markup at render time
+   (broadsheet_slip_site_title() in functions.php):
+     <a class="s-slip">
        <span class="s-slip__sizer">Broadsheet</span>
        <span class="s-slip__a">Broadsheet</span>
        <span class="s-slip__b">Broadsheet</span>
        <span class="s-slip__c">Broadsheet</span>
-     </span>
+     </a>
 
    Below about 22px the three strips merge and the word stops reading. Use
    .s-slip--flat there.
@@ -83,15 +84,21 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   text-decoration: none;
   line-height: 1;
 }
+/* The masthead wordmark is full size on the front page (WordPress marks it
+   .home, whatever Settings > Reading sets as the front page) and steps down
+   everywhere else. The slip offsets are in em, so the strips scale with it. */
+.s-slip--masthead { font-size: var(--wp--preset--font-size--d-xl); }
+body:not(.home) .s-slip--masthead { font-size: var(--wp--preset--font-size--d-2); }
+.wp-block-site-title.is-style-slip { margin: 0; line-height: 1; }
 .s-slip > span { position: absolute; inset-block-start: 0; inset-inline-start: 0; display: block; }
 /* Must out-specify `.s-slip > span` above, or every strip goes absolute and
    the wordmark collapses to zero height. */
 .s-slip > .s-slip__sizer { position: relative; visibility: hidden; }
-.s-slip__a { clip-path: inset(0 0 58% 0);   color: var(--ink); }
+.s-slip__a { clip-path: inset(0 0 58% 0);   color: var(--contrast); }
 .s-slip__b { clip-path: inset(42% 0 24% 0); color: var(--accent); transform: translateX(var(--wp--custom--slip--offset)); }
-.s-slip__c { clip-path: inset(76% 0 0 0);   color: var(--ink); transform: translateX(var(--wp--custom--slip--counter)); }
+.s-slip__c { clip-path: inset(76% 0 0 0);   color: var(--contrast); transform: translateX(var(--wp--custom--slip--counter)); }
 
-.s-slip--flat > span { position: relative; clip-path: none; transform: none; }
+.s-slip--flat > span[aria-hidden] { position: relative; clip-path: none; transform: none; }
 .s-slip--flat > .s-slip__sizer,
 .s-slip--flat > .s-slip__b,
 .s-slip--flat > .s-slip__c { display: none; }
@@ -124,14 +131,66 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2014%2014%22%3E%3Cpath%20d%3D%22M1%201H13V13%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%222.4%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
 }
 
+/* Next and previous carry the bracket too: next closes on the corner after
+   its label, previous opens on the mirrored corner before it, so a pair reads
+   outward. Covers post navigation, listing and comment pagination, and the
+   split-post pager from functions.php. */
+:is(.post-navigation-link-next a, .wp-block-query-pagination-next, .wp-block-comments-pagination-next, .s-pager-next)::after,
+:is(.post-navigation-link-previous a, .wp-block-query-pagination-previous, .wp-block-comments-pagination-previous, .s-pager-prev)::before {
+  content: "";
+  display: inline-block;
+  inline-size: 13px;
+  block-size: 13px;
+  vertical-align: baseline;
+  background-color: currentColor;
+  -webkit-mask: var(--tick) no-repeat center / contain;
+  mask: var(--tick) no-repeat center / contain;
+}
+:is(.post-navigation-link-next a, .wp-block-query-pagination-next, .wp-block-comments-pagination-next, .s-pager-next)::after {
+  margin-inline-start: 9px;
+}
+:is(.post-navigation-link-previous a, .wp-block-query-pagination-previous, .wp-block-comments-pagination-previous, .s-pager-prev)::before {
+  margin-inline-end: 9px;
+  transform: scaleX(-1);
+}
+:is(.post-navigation-link-next a, .wp-block-query-pagination-next, .wp-block-comments-pagination-next, .s-pager-next)::after,
+:is(.post-navigation-link-previous a, .wp-block-query-pagination-previous, .wp-block-comments-pagination-previous, .s-pager-prev)::before { transition: transform 150ms ease-out; }
+/* On hover or keyboard focus the mark steps out the way the link goes. The
+   split-post pager's mark sits on a span inside the link, so its trigger is
+   the link around it. */
+:is(.post-navigation-link-next a, .wp-block-query-pagination-next, .wp-block-comments-pagination-next):is(:hover, :focus-visible)::after,
+a:is(:hover, :focus-visible) .s-pager-next::after { transform: translateX(3px); }
+:is(.post-navigation-link-previous a, .wp-block-query-pagination-previous, .wp-block-comments-pagination-previous):is(:hover, :focus-visible)::before,
+a:is(:hover, :focus-visible) .s-pager-prev::before { transform: scaleX(-1) translateX(3px); }
+/* Read more and the other bracket links (.s-tick) move the same way. The
+   bracket is on the link itself (a.s-tick, the Read More block) or after a
+   paragraph holding the link (p.s-tick, the link pattern). */
+.s-tick::after { transition: transform 150ms ease-out; }
+a.s-tick:is(:hover, :focus-visible)::after,
+.s-tick:has(a:is(:hover, :focus-visible))::after { transform: translateX(3px); }
+/* Underlined at rest like every other link - the Read More block ships with
+   none - and thickened on hover. */
+a.s-tick { text-decoration-line: underline; }
+:is(a.s-tick, .s-tick a):is(:hover, :focus-visible) { text-decoration-thickness: 2px; }
+/* The underline thickens on hover, from the hairline to 2px. */
+:is(.post-navigation-link-next a, .post-navigation-link-previous a, .wp-block-query-pagination-next, .wp-block-query-pagination-previous, .wp-block-comments-pagination-next, .wp-block-comments-pagination-previous, a:has(.s-pager-next), a:has(.s-pager-prev)):is(:hover, :focus-visible) {
+  text-decoration-thickness: 2px;
+}
+/* After the rules above, so it wins: the mark still steps, but without the glide. */
+@media (prefers-reduced-motion: reduce) {
+  .s-tick::after { transition: none; }
+  :is(.post-navigation-link-next a, .wp-block-query-pagination-next, .wp-block-comments-pagination-next, .s-pager-next)::after,
+  :is(.post-navigation-link-previous a, .wp-block-query-pagination-previous, .wp-block-comments-pagination-previous, .s-pager-prev)::before { transition: none; }
+}
+
 /* The four crop marks framing a band: one pseudo element, four mask layers. */
 .s-band::before {
   content: "";
   position: absolute;
-  inset: clamp(10px, 1.8vw, 22px) clamp(10px, 2vw, 30px);
+  inset: clamp(0.625rem, 1.8vw, 1.375rem) clamp(0.625rem, 2vw, 1.875rem);
   pointer-events: none;
   background-color: currentColor;
-  --crop: clamp(28px, 3.5vw, 48px);
+  --crop: clamp(1.75rem, 3.5vw, 3rem);
   -webkit-mask:
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M23%201H1V23%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%223%22%2F%3E%3C%2Fsvg%3E") no-repeat left top / var(--crop) var(--crop),
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M1%201H23V23%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%223%22%2F%3E%3C%2Fsvg%3E") no-repeat right top / var(--crop) var(--crop),
@@ -146,20 +205,20 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 .s-link { display: inline-flex; align-items: center; }
 .s-link a, a.s-tick { color: var(--accent-text); }
-.s-link a:hover, a.s-tick:hover { color: var(--ink); }
-.s-link .u-lab, a.s-tick { padding-block: 12px; }   /* keeps the 44px hit target */
+.s-link a:hover, a.s-tick:hover { color: var(--contrast); }
+.s-link .u-lab, a.s-tick { padding-block: 0.75rem; }   /* keeps the 44px hit target */
 
 .s-band {
   position: relative;
-  padding-block: clamp(34px, 5vw, 62px);
-  padding-inline: clamp(56px, 8vw, 96px);
+  padding-block: clamp(2.125rem, 5vw, 3.875rem);
+  padding-inline: clamp(3.5rem, 8vw, 6rem);
   background: var(--accent);
-  color: var(--paper);
+  color: var(--base);
 }
 .s-band :where(h1, h2, h3, p) { text-align: center; color: inherit; margin: 0; position: relative; }
 
-/* On a dark band the reversed type goes yellow, never a second loud ink. */
-.s-band:is(.s-ink-blue, .is-style-ink-blue, .s-ink-black, .is-style-ink-black) { color: var(--yellow); }
+/* On a dark band the reversed type goes accent-3, never a second loud ink. */
+.s-band:is(.s-ink-secondary, .is-style-ink-secondary, .s-ink-contrast, .is-style-ink-contrast) { color: var(--accent-3); }
 
 /* --------------------------------------------------------------------------
    The visible grid.
@@ -175,15 +234,15 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   gap: var(--hair);
   padding: var(--hair);
 }
-.s-grid > * { box-shadow: 0 0 0 var(--hair) var(--ink); }
+.s-grid > * { box-shadow: 0 0 0 var(--hair) var(--contrast); }
 /* Children are grid items, not a flow. Core's flow-layout rule puts a
    block-gap margin on every child after the first, which shunts the cells out
    of alignment - zero it here.
 
    Wrapped in :where() so the whole selector has zero specificity: a cell that
-   opts into a palette colour (has-blue-background-color) must win, and it
+   opts into a palette colour (has-accent-2-background-color) must win, and it
    would otherwise tie with `.s-grid > *` and lose on source order. */
-:where(.s-grid) > * { background: var(--paper); min-width: 0; }
+:where(.s-grid) > * { background: var(--base); min-width: 0; }
 
 /* The margin reset must NOT be low-specificity: core's flow-layout rule is
    also zero-specificity and would win on source order, pushing every cell
@@ -192,19 +251,109 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 
 .s-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .s-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.s-grid--hero { grid-template-columns: 372px minmax(0, 1fr) 340px; }
-.s-grid--feature { grid-template-columns: minmax(0, 1fr) 560px; }
 
-.s-cell { padding: clamp(24px, 2.6vw, 40px); }
-.s-cell--tight { padding: clamp(20px, 1.9vw, 26px); }
+/* Post card: the featured image runs to the cell's hairlines, the text sits
+   in a tight cell below. A post without an image starts with its text. */
+.s-card { display: flex; flex-direction: column; block-size: 100%; }
+.s-card > * { margin-block: 0; }
+.s-card__image { margin: 0; }
+.s-card__image img { display: block; width: 100%; }
+.s-card .s-cell--tight { flex: 1 1 auto; }
+/* Read more sits at the foot of the card, so the links line up along a row. */
+.s-card .wp-block-read-more { margin-block-start: auto; align-self: flex-start; }
+
+/*
+  The Latest Posts block, set as post cards in the same hairline grid. Always
+  a grid: the editor's column count when one is set (Grid layout), four
+  otherwise. Core's markup puts the date after the title; the card puts it
+  first, so the parts are reordered. Core's own grid rules are
+  .is-grid:not(.is-layout-grid), so the block class is doubled here to
+  outrank them without !important.
+*/
+ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list {
+  --lp-cols: 4;
+  --lp-min: 12.5rem;
+  --lp-pad: clamp(1.25rem, 1.9vw, 1.625rem);
+  display: grid;
+  /* --lp-cols is a ceiling, not a count: a card never gets narrower than
+     --lp-min, so the same block drops columns in a narrow text column as
+     well as on a narrow screen. */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(max(min(var(--lp-min), 100%), calc((100% - (var(--lp-cols) - 1) * var(--hair)) / var(--lp-cols))), 1fr)
+  );
+  gap: var(--hair);
+  padding: var(--hair);
+  list-style: none;
+}
+ul.wp-block-latest-posts.wp-block-latest-posts.columns-1 { --lp-cols: 1; }
+ul.wp-block-latest-posts.wp-block-latest-posts.columns-2 { --lp-cols: 2; }
+ul.wp-block-latest-posts.wp-block-latest-posts.columns-3 { --lp-cols: 3; }
+ul.wp-block-latest-posts.wp-block-latest-posts.columns-5 { --lp-cols: 5; }
+ul.wp-block-latest-posts.wp-block-latest-posts.columns-6 { --lp-cols: 6; }
+ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  inline-size: auto;
+  min-width: 0;
+  margin: 0;
+  padding: var(--lp-pad);
+  background: var(--base);
+  box-shadow: 0 0 0 var(--hair) var(--contrast);
+}
+ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li > * { margin: 0; }
+/* The image bleeds to the cell's hairlines, whatever alignment the editor set. */
+ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li > .wp-block-latest-posts__featured-image {
+  order: 0;
+  float: none;
+  margin: calc(var(--lp-pad) * -1) calc(var(--lp-pad) * -1) 0;
+}
+ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list > li > .wp-block-latest-posts__featured-image img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  max-width: none;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.wp-block-latest-posts__post-date {
+  order: 1;
+  font-family: var(--mono);
+  font-size: var(--wp--preset--font-size--label);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.9;
+  color: var(--muted);
+}
+.wp-block-latest-posts__post-title {
+  order: 2;
+  font-family: var(--disp);
+  font-size: var(--wp--preset--font-size--d-4);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.wp-block-latest-posts__post-title:hover { text-decoration: underline; }
+.wp-block-latest-posts__post-author { order: 3; }
+.wp-block-latest-posts__post-excerpt,
+.wp-block-latest-posts__post-full-content { order: 4; }
+.s-grid--hero { grid-template-columns: 23.25rem minmax(0, 1fr) 21.25rem; }
+.s-grid--feature { grid-template-columns: minmax(0, 1fr) 35rem; }
+
+.s-cell { padding: clamp(1.5rem, 2.6vw, 2.5rem); }
+.s-cell--tight { padding: clamp(1.25rem, 1.9vw, 1.625rem); }
 
 /* Stacked hairline rows: name at the left, bracket parked at the right. */
-.s-rows { list-style: none; margin: 0; padding-inline-start: 0; border-block-start: var(--hair) solid var(--ink); }
+.s-rows { list-style: none; margin: 0; padding-inline-start: 0; border-block-start: var(--hair) solid var(--contrast); }
 .s-row {
-  display: flex; align-items: center; justify-content: space-between; gap: 20px;
-  padding-block: clamp(16px, 1.9vw, 26px);
-  border-block-end: var(--hair) solid var(--ink);
-  min-height: 44px;
+  display: flex; align-items: center; justify-content: space-between; gap: 1.25rem;
+  padding-block: clamp(1rem, 1.9vw, 1.625rem);
+  border-block-end: var(--hair) solid var(--contrast);
+  min-height: 2.75rem;
 }
 /* The row's type is carried by the stylesheet, not by utility classes on every
    list item - so the pattern stays a plain core/list an editor can extend. It
@@ -234,9 +383,11 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 }
 
 /* Small parts */
-.s-tag { display: inline-block; background: var(--accent); color: var(--paper); padding: 9px 14px; }
-.s-chip { display: inline-block; border: var(--hair) solid var(--ink); padding: 7px 12px; }
-.s-chip.is-on { background: var(--ink); color: var(--paper); }
+/* Set on --accent-text, not --accent: the tag is small type, and cream on the
+   bright accent-1 falls short of 4.5:1. */
+.s-tag { display: inline-block; background: var(--accent-text); color: var(--base); padding: 0.5625rem 0.875rem; }
+.s-chip { display: inline-block; border: var(--hair) solid var(--contrast); padding: 0.4375rem 0.75rem; }
+.s-chip.is-on { background: var(--contrast); color: var(--base); }
 
 /* The photograph cell.
 
@@ -246,9 +397,9 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
    cover reads as a flat placeholder, and a real image simply covers it. */
 .s-plate {
   position: relative;
-  background: var(--plate);
-  color: var(--quiet);
-  min-height: clamp(200px, 30vw, 470px);
+  background: var(--surface);
+  color: var(--muted);
+  min-height: clamp(12.5rem, 30vw, 29.375rem);
   padding: 0;
   align-items: stretch;
   justify-content: flex-start;
@@ -275,29 +426,35 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 .wp-block-separator.is-style-bar,
 .wp-block-separator.is-style-hairline {
   border: 0;
-  background: var(--ink);
+  background: var(--contrast);
   opacity: 1;
   width: 100%;
-  max-width: none;
   margin-block: 0;
 }
-.wp-block-separator.is-style-bar { height: clamp(5px, 0.5vw, 7px); }
+.wp-block-separator.is-style-bar { height: var(--bar); }
 .wp-block-separator.is-style-hairline { height: var(--hair); }
 
 /* --------------------------------------------------------------------------
    Header
    -------------------------------------------------------------------------- */
 
-.s-masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
-.s-bar { height: clamp(5px, 0.5vw, 7px); background: var(--ink); }
-.s-hair { height: var(--hair); background: var(--ink); }
+.s-masthead { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; }
+/* A Site Logo, once one is set, replaces the wordmark: the Site Logo block
+   renders nothing until there is a logo, so the name shows only without one.
+   The logo's alt text is the site name, so nothing is lost to a screen reader. */
+.s-brand .wp-block-site-logo { margin: 0; }
+.s-brand:has(.custom-logo) .wp-block-site-title { display: none; }
+/* The nav row sits straight under the heavy bar; its own padding is the gap. */
+header > .s-navrow { margin-block-start: 0; }
+.s-bar { height: clamp(5px, 0.5vw, 7px); background: var(--contrast); }
+.s-hair { height: var(--hair); background: var(--contrast); }
 
 /* Navigation.
    This uses core/navigation rather than a bespoke menu, so the responsive
    overlay, keyboard handling and menu management stay WordPress's job. Only
    the appearance is ours. */
-.s-nav { padding-block: 14px; }
-.s-nav .wp-block-navigation__container { gap: clamp(16px, 2vw, 30px); align-items: center; }
+.s-nav { padding-block: 0.875rem; }
+.s-nav .wp-block-navigation__container { gap: clamp(1rem, 2vw, 1.875rem); align-items: center; }
 .s-nav .wp-block-navigation-item__content {
   font-family: var(--mono);
   font-size: var(--wp--preset--font-size--label);
@@ -305,41 +462,85 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
-  padding-block: 12px;                       /* keeps the 44px hit target */
+  padding-block: 0.75rem;                       /* keeps the 44px hit target */
 }
 .s-nav .wp-block-navigation-item__content:hover { text-decoration: underline; }
-.s-nav .current-menu-item .wp-block-navigation-item__content { border-block-end: 2px solid var(--ink); }
+.s-nav .current-menu-item .wp-block-navigation-item__content { border-block-end: 2px solid var(--contrast); }
 
 /* The overlay is flat paper, like everything else - no scrim, no rounding. */
 .s-nav .wp-block-navigation__responsive-container.is-menu-open {
-  background: var(--paper);
-  padding: clamp(20px, 5.2vw, 96px);
+  background: var(--base);
+  padding: clamp(1.25rem, 5.2vw, 6rem);
 }
 .s-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container {
   align-items: flex-start;
   gap: 0;
 }
-.s-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content { padding-block: 14px; }
+.s-nav .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item__content { padding-block: 0.875rem; }
 .s-nav .wp-block-navigation__responsive-container-open,
-.s-nav .wp-block-navigation__responsive-container-close { color: var(--ink); }
+.s-nav .wp-block-navigation__responsive-container-close { color: var(--contrast); }
 
 /* The navigation row: menu left, search right, on the same hairline. */
-.s-navrow { gap: 24px; align-items: center; padding-block: 10px; }
-.s-navrow .s-nav { padding-block: 4px; }
+.s-navrow { gap: 1.5rem; align-items: center; padding-block: 0.625rem; }
+.s-navrow .s-nav { padding-block: 0.25rem; }
 .s-navrow > * { margin-block: 0; }
 
+/*
+  Buttons: four styles, one box, one rule - each swaps fill and outline on
+  hover or keyboard focus.
+
+    Fill (core default)   contrast fill    ->  contrast outline
+    Outline (core)        contrast outline ->  contrast fill
+    Fill: accent          accent fill      ->  accent outline
+    Outline: accent       accent outline   ->  accent fill
+
+  Each style has one colour, --btn-ink, used for its border, fill and text;
+  the other side of the swap is --base. "Accent" is --accent-text, the darker
+  shade: light label text on the bright accent is only 3.8:1, under the 4.5:1
+  a small label needs. Every style carries the same border, taken out of the
+  padding (theme.json's em button tokens), so all four are the same size.
+  Scoped to the Button block; search and form buttons keep theme.json's
+  element styling. Colours an editor sets on a button (.has-text-color,
+  .has-background) win. .wp-block-buttons > outranks core's outline rules.
+*/
+.wp-block-buttons > .wp-block-button { --btn-ink: var(--contrast); }
+.wp-block-buttons > .wp-block-button:is(.is-style-fill-accent, .is-style-outline-accent) { --btn-ink: var(--accent-text); }
+.wp-block-buttons > .wp-block-button > .wp-block-button__link {
+  border: var(--wp--custom--button--outline-width) solid var(--btn-ink);
+  padding:
+    calc(var(--wp--custom--button--padding-block) - var(--wp--custom--button--outline-width))
+    calc(var(--wp--custom--button--padding-inline) - var(--wp--custom--button--outline-width));
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+/* A button the editor coloured keeps its colours; its border goes clear so
+   the background shows through it and the box stays the same size. */
+.wp-block-buttons > .wp-block-button > .wp-block-button__link.has-background { border-color: transparent; }
+/* Fill styles: solid at rest, outline on hover. */
+.wp-block-buttons > .wp-block-button:not(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:not(.has-background) { background-color: var(--btn-ink); }
+.wp-block-buttons > .wp-block-button:not(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:not(.has-text-color) { color: var(--base); }
+.wp-block-buttons > .wp-block-button:not(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:is(:hover, :focus-visible):not(.has-background) { background-color: transparent; }
+.wp-block-buttons > .wp-block-button:not(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:is(:hover, :focus-visible):not(.has-text-color) { color: var(--btn-ink); }
+/* Outline styles: outline at rest, solid on hover. */
+.wp-block-buttons > .wp-block-button:is(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:not(.has-background) { background-color: transparent; }
+.wp-block-buttons > .wp-block-button:is(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:not(.has-text-color) { color: var(--btn-ink); }
+.wp-block-buttons > .wp-block-button:is(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:is(:hover, :focus-visible):not(.has-background) { background-color: var(--btn-ink); }
+.wp-block-buttons > .wp-block-button:is(.is-style-outline, .is-style-outline-accent) > .wp-block-button__link:is(:hover, :focus-visible):not(.has-text-color) { color: var(--base); }
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-buttons > .wp-block-button > .wp-block-button__link { transition: none; }
+}
+
 /* Header search: set like the nav labels, a hairline box, the button an ink
-   block that turns red on hover like every other button. */
-.s-search { flex: 0 1 260px; min-inline-size: 0; }
+   block that turns accent-1-text on hover like every other button. */
+.s-search { flex: 0 1 16.25rem; min-inline-size: 0; }
 .s-search .wp-block-search__inside-wrapper {
-  border: var(--hair) solid var(--ink);
+  border: var(--hair) solid var(--contrast);
   border-radius: 0;
   padding: 0;
-  background: var(--paper);
+  background: var(--base);
 }
 .s-search .wp-block-search__input {
   border: none;
-  padding: 10px 12px;
+  padding: 0.625rem 0.75rem;
   min-inline-size: 0;
   font-family: var(--mono);
   font-size: var(--wp--preset--font-size--label);
@@ -347,34 +548,96 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
-.s-search .wp-block-search__input::placeholder { color: var(--quiet); opacity: 1; }
+.s-search .wp-block-search__input::placeholder { color: var(--muted); opacity: 1; }
+/* Core drops the field's outline when the button sits inside the box; ring
+   the whole box instead, matching every other focus outline. */
+.wp-block-search__button-inside .wp-block-search__inside-wrapper:has(.wp-block-search__input:focus-visible) {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 3px;
+}
 .s-search .wp-block-search__button {
   margin: 0;
-  padding-inline: 12px;
-  min-inline-size: 44px;                     /* 44px hit target */
-  background: var(--ink);
-  color: var(--paper);
+  padding-inline: 0.75rem;
+  min-inline-size: 2.75rem;                     /* 44px hit target */
+  background: var(--contrast);
+  color: var(--base);
 }
-.s-search .wp-block-search__button:hover { background: var(--red); }
+.s-search .wp-block-search__button:hover { background: var(--accent-1); }
 .s-search .wp-block-search__button svg { fill: currentColor; }
 
 /* --------------------------------------------------------------------------
    Footer.
-   The columns carry the hairline, so the gap between them is zero and the rule
-   is a border on each column after the brand.
+   The footer opens on the heavy rule, like the header. One hairline divides
+   the brand from the menus, joining the heavy rule above and the hairline
+   above the colophon below; the menu columns themselves are not ruled apart.
+   The divider is drawn past the column by spacing 40 at each end - the
+   columns' top padding and the separator's top margin - so it meets both.
    -------------------------------------------------------------------------- */
 
-.s-footer__cols { gap: 0; }
-.s-footer__brand { padding-inline-end: 40px; }
-.s-footer__col {
-  border-inline-start: var(--hair) solid var(--ink);
-  padding-inline-start: 34px;
+.s-footer__cols {
+  gap: 0;
+  border-block-start: var(--bar) solid var(--contrast);
+  padding-block-start: var(--wp--preset--spacing--40);
 }
+.s-footer__brand { padding-inline-end: 2.5rem; position: relative; }
+.s-footer__brand::after {
+  content: "";
+  position: absolute;
+  inset-block: calc(var(--wp--preset--spacing--40) * -1);
+  inset-inline-end: 0;
+  border-inline-end: var(--hair) solid var(--contrast);
+}
+.s-footer__col { padding-inline-start: 2.125rem; }
+/* The colophon sits close under its hairline: no flow gap on top of the
+   separator's own margin. */
+.s-footer > .s-colophon { margin-block-start: 0; }
 
 /* A stacked nav in the footer: no outer padding, no gap between items - the
    12px padding on each link gives both the rhythm and the 44px hit target. */
 .s-nav--stacked { padding-block: 0; }
 .s-nav--stacked .wp-block-navigation__container { gap: 0; align-items: flex-start; }
+
+/* No dropdowns in the footer. A parent's children are listed straight under
+   it, set like every other item: core's pop-out panel is flattened into the
+   list and its toggle hidden. Four classes deep to outrank core's own
+   .wp-block-navigation .has-child .wp-block-navigation__submenu-container. */
+.s-footer .wp-block-navigation .has-child { flex-direction: column; align-items: flex-start; }
+.s-footer .wp-block-navigation .has-child .wp-block-navigation__submenu-container {
+  position: static;
+  visibility: visible;
+  opacity: 1;
+  inline-size: auto;
+  block-size: auto;
+  min-inline-size: 0;
+  overflow: visible;
+  inset: auto;
+  z-index: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  transition: none;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.s-footer .wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+  padding: 0.375rem 0;
+}
+.s-footer .wp-block-navigation__submenu-icon { display: none; }
+
+/* Footer menus sit tighter than the header's: 6px a side keeps each link
+   around 32px tall, above WCAG 2.2's 24px minimum target. */
+.s-footer .s-nav .wp-block-navigation-item__content { padding-block: 0.375rem; }
+
+/* A parent's children read like the colophon - sentence case in the body
+   mono - so they sit under the parent's capitals as a quieter second level. */
+.s-footer .s-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+  font-family: var(--mono);
+  font-size: var(--wp--preset--font-size--body);
+  font-weight: 300;
+  letter-spacing: inherit;
+  text-transform: none;
+  opacity: 0.7;
+}
 
 /* A plain link list, styled like the nav beside it. */
 .s-footer__list { list-style: none; margin: 0; padding-inline-start: 0; }
@@ -387,7 +650,7 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
-  padding-block: 12px;
+  padding-block: 0.75rem;
 }
 .s-footer__list a:hover { text-decoration: underline; }
 
@@ -395,15 +658,15 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
    Ledger (index / archive listing)
    -------------------------------------------------------------------------- */
 
-.s-ledger { list-style: none; margin: 0; padding: 0; border-block-start: var(--hair) solid var(--ink); }
+.s-ledger { list-style: none; margin: 0; padding: 0; border-block-start: var(--hair) solid var(--contrast); }
 .s-entry {
   display: grid;
-  grid-template-columns: 96px minmax(0, 1fr) 220px 190px 60px;
+  grid-template-columns: 6rem minmax(0, 1fr) 13.75rem 11.875rem 3.75rem;
   grid-template-areas: "no title press run brk";
   align-items: center;
-  gap: 12px;
-  padding-block: clamp(16px, 1.6vw, 22px);
-  border-block-end: var(--hair) solid var(--ink);
+  gap: 0.75rem;
+  padding-block: clamp(1rem, 1.6vw, 1.375rem);
+  border-block-end: var(--hair) solid var(--contrast);
 }
 .s-entry__no { grid-area: no; }
 .s-entry__title { grid-area: title; text-decoration: none; }
@@ -420,62 +683,65 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
   -webkit-mask: var(--tick) no-repeat center / contain;
   mask: var(--tick) no-repeat center / contain;
 }
-.s-entry--on { background: var(--blue); padding-inline: 16px; }
-.s-entry--on .s-entry__title { color: var(--paper); }
-.s-entry--on .u-lab { color: var(--yellow); }
-.s-entry--on::after { background-color: var(--yellow); }
+.s-entry--on { background: var(--accent-2); padding-inline: 1rem; }
+.s-entry--on .s-entry__title { color: var(--base); }
+.s-entry--on .u-lab { color: var(--accent-3); }
+.s-entry--on::after { background-color: var(--accent-3); }
 
 /* --------------------------------------------------------------------------
    Responsive. The grid drops columns; the rules stay.
    -------------------------------------------------------------------------- */
 
-@media (max-width: 1120px) {
+@media (max-width: 70em) {
   .s-grid--hero { grid-template-columns: minmax(0, 1fr); }
   .s-grid--hero .s-hero-copy { order: 1; }
-  .s-grid--hero .s-plate { order: 2; min-height: clamp(160px, 28vw, 300px); }
+  .s-grid--hero .s-plate { order: 2; min-height: clamp(10rem, 28vw, 18.75rem); }
   .s-grid--hero .s-call { order: 3; }
   .s-grid--feature { grid-template-columns: minmax(0, 1fr); }
-  .s-grid--feature .s-plate { min-height: clamp(220px, 34vw, 330px); }
+  .s-grid--feature .s-plate { min-height: clamp(13.75rem, 34vw, 20.625rem); }
   .s-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list:not(.columns-1) { --lp-cols: 2; }
 }
 
-@media (max-width: 781px) {
+@media (max-width: 48.8125em) {
   .s-footer__brand { padding-inline-end: 0; }
+  .s-footer__brand::after { display: none; }
   .s-footer__col {
     border-inline-start: none;
-    border-block-start: var(--hair) solid var(--ink);
+    border-block-start: var(--hair) solid var(--contrast);
     padding-inline-start: 0;
-    padding-block-start: 18px;
+    padding-block-start: 1.125rem;
   }
 }
 
-@media (max-width: 940px) {
+@media (max-width: 58.75em) {
   .s-entry {
-    grid-template-columns: 56px minmax(0, 1fr) auto 34px;
+    grid-template-columns: 3.5rem minmax(0, 1fr) auto 2.125rem;
     grid-template-areas:
       "no title title brk"
       "no press run   brk";
-    row-gap: 6px;
-    column-gap: 12px;
+    row-gap: 0.375rem;
+    column-gap: 0.75rem;
   }
   .s-entry::after { align-self: center; }
   .s-entry__run { justify-self: end; }
   .s-entry--head { display: none; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 47.5em) {
   .s-masthead { align-items: center; }
   .s-masthead .s-tagline { display: none; }
-  .s-search { flex-basis: 180px; }
+  .s-search { flex-basis: 11.25rem; }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 38.75em) {
   .s-grid--4, .s-grid--2 { grid-template-columns: minmax(0, 1fr); }
+  ul.wp-block-latest-posts.wp-block-latest-posts.wp-block-latest-posts__list:not(.columns-1) { --lp-cols: 1; }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 35em) {
   .s-entry {
-    grid-template-columns: 48px minmax(0, 1fr) 30px;
+    grid-template-columns: 3rem minmax(0, 1fr) 1.875rem;
     grid-template-areas:
       "no title brk"
       "no press brk"
@@ -502,20 +768,16 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 .wp-block-post-template.s-grid { display: grid; }
 .wp-block-post-template.s-ledger { display: block; }
 
-/* Section head: heading left, "everything" link right. */
-.s-head { align-items: flex-end; padding-block-end: 26px; }
-.s-head :where(h1, h2, h3, p) { margin-block: 0; }
-
 /* Hero cells. */
-.s-hero-copy { display: flex; flex-direction: column; justify-content: space-between; gap: 26px; }
+.s-hero-copy { display: flex; flex-direction: column; justify-content: space-between; gap: 1.625rem; }
 .s-hero-copy > * { margin-block: 0; }
 .s-hero-copy p { max-width: 44ch; }
 
-.s-call { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; align-items: flex-start; }
+.s-call { display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem; align-items: flex-start; }
 .s-call > * { margin-block: 0; }
 
 .s-cell--tight > * { margin-block: 0; }
-.s-cell--tight { display: flex; flex-direction: column; gap: 14px; }
+.s-cell--tight { display: flex; flex-direction: column; gap: 0.875rem; }
 .s-cell--tight .wp-block-post-excerpt { flex-grow: 1; }
 .s-cell--tight .wp-block-post-title a { text-decoration: none; }
 .s-cell--tight .wp-block-post-title a:hover { text-decoration: underline; }
@@ -526,17 +788,43 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 .s-entry__title a:hover { text-decoration: underline; }
 
 /* Pagination reads as two plain links, like everything else. */
-.wp-block-query-pagination { padding-block: 30px; }
+.wp-block-query-pagination { padding-block: 1.875rem; }
 .wp-block-query-pagination a { color: var(--accent-text); }
 
 .s-colophon > * { margin-block: 0; }
+/* "(c) year" and the linked site title read as one line: a word space, not
+   the flex block gap. */
+.s-colophon__copy { gap: 0.5em; }
+
+/* "Leave a Reply" is an h2 for the outline (see functions.php) but keeps the
+   h3 size it was designed at. */
+h2.comment-reply-title { font-size: var(--wp--preset--font-size--d-2); }
+
+/* Core paints striped rows a fixed light grey, which a dark palette's light
+   text can't be read on. Stripe in the palette's own surface instead. */
+.wp-block-table.is-style-stripes tbody tr:nth-child(odd) { background-color: var(--surface); }
+
+/* Form fields take the page's own inks, so a dark variation never puts its
+   light text on the browser's white field. */
+:where(input:not([type="submit"], [type="button"], [type="checkbox"], [type="radio"], [type="range"]), textarea, select) {
+  background-color: var(--base);
+  color: var(--contrast);
+  border: var(--hair) solid var(--contrast);
+}
+
+/* Archive, category, page list and RSS links are set in the small label face; the padding
+   keeps each one a 24px touch target (WCAG 2.2, 2.5.8). */
+:is(.wp-block-archives-list, .wp-block-categories-list, .wp-block-page-list:not(.wp-block-navigation *), .wp-block-rss__item-title) a { display: inline-block; padding-block: 0.4em; }
+/* Breadcrumbs wrap onto a second line on a phone; the padding keeps the two
+   rows of links 24px targets without spreading a one-line trail. */
+.wp-block-breadcrumbs a { display: inline-block; padding-block: 0.2em; }
 
 /* The search block, flattened. */
 .wp-block-search__input {
-  border: var(--hair) solid var(--ink);
+  border: var(--hair) solid var(--contrast);
   border-radius: 0;
-  background: var(--paper);
-  padding: 14px;
+  background: var(--base);
+  padding: 0.875rem;
 }
 .wp-block-search__button { border-radius: 0; }
 
@@ -564,6 +852,44 @@ Tags: full-site-editing, one-column, wide-blocks, block-patterns, style-variatio
 .gallery-item { margin: 0; }
 .gallery-icon { text-align: center; }
 .gallery-icon img { display: inline-block; }
-@media (max-width: 600px) {
+@media (max-width: 37.5em) {
   .gallery:not(.gallery-columns-1) { --gallery-cols: 2; }
 }
+
+/*
+  Gallery block captions sit under the image, not over it. Core overlays
+  them on a gradient with a capped height that scrolls, and that scroll box
+  can't take keyboard focus, so a long caption is out of reach. Covers the
+  current gallery (nested image blocks) and the legacy one (ul of items),
+  which lays its figure out as a row. figure.wp-block-gallery outranks
+  core's selectors whichever stylesheet loads last.
+*/
+figure.wp-block-gallery.has-nested-images figure.wp-block-image:has(figcaption)::before { content: none; }
+figure.wp-block-gallery:not(.has-nested-images) .blocks-gallery-item figure {
+  flex-direction: column;
+  align-items: stretch;
+}
+figure.wp-block-gallery.has-nested-images figure.wp-block-image figcaption,
+figure.wp-block-gallery:not(.has-nested-images) .blocks-gallery-item figcaption {
+  position: static;
+  max-height: none;
+  overflow: visible;
+  flex-grow: 0;
+  padding: 0.5em 0 0;
+  background: none;
+  color: inherit;
+  text-shadow: none;
+  text-align: start;
+}
+/* A cropped gallery fills each image to its row height, which a caption
+   now takes out of. Crop to one shape instead, so every image in a row
+   lines up and captions of any length hang below. */
+figure.wp-block-gallery.is-cropped .blocks-gallery-item figure,
+figure.wp-block-gallery.has-nested-images.is-cropped figure.wp-block-image { justify-content: flex-start; }
+figure.wp-block-gallery:not(.has-nested-images).is-cropped .blocks-gallery-item :is(a, img),
+figure.wp-block-gallery.has-nested-images.is-cropped figure.wp-block-image:not(#individual-image) :is(a, img) {
+  flex: none;
+  height: auto;
+}
+figure.wp-block-gallery:not(.has-nested-images).is-cropped .blocks-gallery-item img,
+figure.wp-block-gallery.has-nested-images.is-cropped figure.wp-block-image:not(#individual-image) img { aspect-ratio: 4 / 3; }

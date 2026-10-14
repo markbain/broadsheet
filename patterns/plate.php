@@ -13,8 +13,8 @@
  */
 
 ?>
-<!-- wp:cover {"dimRatio":0,"overlayColor":"plate","isUserOverlayColor":true,"isDark":false,"minHeight":470,"className":"s-plate","layout":{"type":"default"}} -->
-<div class="wp-block-cover is-light s-plate" style="min-height:470px"><span aria-hidden="true" class="wp-block-cover__background has-plate-background-color has-background-dim-0 has-background-dim"></span><div class="wp-block-cover__inner-container">
+<!-- wp:cover {"dimRatio":0,"overlayColor":"surface","isUserOverlayColor":true,"isDark":false,"minHeight":29.375,"minHeightUnit":"rem","className":"s-plate","layout":{"type":"default"}} -->
+<div class="wp-block-cover is-light s-plate" style="min-height:29.375rem"><span aria-hidden="true" class="wp-block-cover__background has-surface-background-color has-background-dim-0 has-background-dim"></span><div class="wp-block-cover__inner-container">
 	<!-- wp:paragraph {"className":"u-lab s-tag"} -->
 	<p class="u-lab s-tag"><?php esc_html_e( 'Residency', 'broadsheet' ); ?></p>
 	<!-- /wp:paragraph -->
