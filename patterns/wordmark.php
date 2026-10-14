@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Wordmark
- * Slug: broadsheet/wordmark
+ * Slug: bd324-broadsheet/wordmark
  * Keywords: logo, wordmark, site title, slip
- * Categories: broadsheet_part
+ * Categories: bd324_broadsheet_part
  * Inserter: no
  * Viewport width: 1400
  * Description: The Site Title in the Slip style - three strips, the middle one pushed sideways - or the Site Logo instead, once one is set.

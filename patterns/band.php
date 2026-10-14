@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Slogan band
- * Slug: broadsheet/band
+ * Slug: bd324-broadsheet/band
  * Keywords: band, slogan, full width, crop marks
- * Categories: broadsheet_section
+ * Categories: bd324_broadsheet_section
  * Block Types: core/group
  * Viewport width: 1400
  * Description: A full-bleed band with corner crop marks and one short slogan. One ink per band - set it with the Ink block style.

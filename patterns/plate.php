@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: Photograph
- * Slug: broadsheet/plate
+ * Slug: bd324-broadsheet/plate
  * Keywords: image, photograph, cover, tag
- * Categories: broadsheet_part
+ * Categories: bd324_broadsheet_part
  * Block Types: core/cover
  * Viewport width: 800
  * Description: A photograph filling its cell, with a solid category tag stuck in the corner. Replace the image through the media library.

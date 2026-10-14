@@ -1,9 +1,9 @@
 <?php
 /**
  * Title: No results
- * Slug: broadsheet/no-results
+ * Slug: bd324-broadsheet/no-results
  * Keywords: empty, no results, query
- * Categories: broadsheet_part
+ * Categories: bd324_broadsheet_part
  * Inserter: no
  * Viewport width: 1400
  * Description: The line shown when a query returns nothing.
