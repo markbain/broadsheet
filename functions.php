@@ -305,7 +305,7 @@ if ( ! function_exists( 'broadsheet_blog_home_title' ) ) :
 	 * Settings > Reading, keeping the block's heading level, font size and
 	 * classes so the template still decides how it looks.
 	 *
-	 * @since Broadsheet 1.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @param string $block_content The rendered block, empty off archives.
 	 * @param array  $block         The parsed block.
@@ -357,7 +357,7 @@ if ( ! function_exists( 'broadsheet_slip_site_title' ) ) :
 	 * The editor renders Site Title in JavaScript and never sees this, so it
 	 * shows the name in the display face without the strips.
 	 *
-	 * @since Broadsheet 1.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @param string $block_content The block's rendered HTML.
 	 * @param array  $block         The parsed block.
@@ -413,7 +413,7 @@ if ( ! function_exists( 'broadsheet_comment_form_heading' ) ) :
 	 * follow the post's h1 directly and skip a level. As an h2 it is a sibling
 	 * of the Comments title when there is one.
 	 *
-	 * @since Broadsheet 1.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @param array $defaults The comment form arguments.
 	 * @return array
@@ -433,7 +433,7 @@ if ( ! function_exists( 'broadsheet_focusable_pre' ) ) :
 	 * Code never wraps (see foundation.css), so a long line scrolls sideways,
 	 * and a keyboard user can only scroll a region that takes focus.
 	 *
-	 * @since Broadsheet 1.1.0
+	 * @since Broadsheet 1.0.0
 	 *
 	 * @param string $content The post content or comment text.
 	 * @return string

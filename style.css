@@ -855,3 +855,41 @@ h2.comment-reply-title { font-size: var(--wp--preset--font-size--d-2); }
 @media (max-width: 37.5em) {
   .gallery:not(.gallery-columns-1) { --gallery-cols: 2; }
 }
+
+/*
+  Gallery block captions sit under the image, not over it. Core overlays
+  them on a gradient with a capped height that scrolls, and that scroll box
+  can't take keyboard focus, so a long caption is out of reach. Covers the
+  current gallery (nested image blocks) and the legacy one (ul of items),
+  which lays its figure out as a row. figure.wp-block-gallery outranks
+  core's selectors whichever stylesheet loads last.
+*/
+figure.wp-block-gallery.has-nested-images figure.wp-block-image:has(figcaption)::before { content: none; }
+figure.wp-block-gallery:not(.has-nested-images) .blocks-gallery-item figure {
+  flex-direction: column;
+  align-items: stretch;
+}
+figure.wp-block-gallery.has-nested-images figure.wp-block-image figcaption,
+figure.wp-block-gallery:not(.has-nested-images) .blocks-gallery-item figcaption {
+  position: static;
+  max-height: none;
+  overflow: visible;
+  flex-grow: 0;
+  padding: 0.5em 0 0;
+  background: none;
+  color: inherit;
+  text-shadow: none;
+  text-align: start;
+}
+/* A cropped gallery fills each image to its row height, which a caption
+   now takes out of. Crop to one shape instead, so every image in a row
+   lines up and captions of any length hang below. */
+figure.wp-block-gallery.is-cropped .blocks-gallery-item figure,
+figure.wp-block-gallery.has-nested-images.is-cropped figure.wp-block-image { justify-content: flex-start; }
+figure.wp-block-gallery:not(.has-nested-images).is-cropped .blocks-gallery-item :is(a, img),
+figure.wp-block-gallery.has-nested-images.is-cropped figure.wp-block-image:not(#individual-image) :is(a, img) {
+  flex: none;
+  height: auto;
+}
+figure.wp-block-gallery:not(.has-nested-images).is-cropped .blocks-gallery-item img,
+figure.wp-block-gallery.has-nested-images.is-cropped figure.wp-block-image:not(#individual-image) img { aspect-ratio: 4 / 3; }

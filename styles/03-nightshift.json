@@ -53,6 +53,6 @@
 			"background": "var(--wp--preset--color--base)",
 			"text": "var(--wp--preset--color--contrast)"
 		},
-		"css": "::selection { background: var(--wp--preset--color--accent-2); color: var(--wp--preset--color--base); }"
+		"css": "::selection { background: var(--wp--preset--color--accent-2); color: var(--wp--preset--color--base); } :where(.has-cyan-bluish-gray-background-color, .has-white-background-color, .has-pale-pink-background-color, .has-luminous-vivid-orange-background-color, .has-luminous-vivid-amber-background-color, .has-light-green-cyan-background-color, .has-vivid-green-cyan-background-color, .has-pale-cyan-blue-background-color, .has-vivid-cyan-blue-background-color, .has-contrast-background-color, .has-accent-1-background-color, .has-accent-1-text-background-color, .has-accent-2-background-color, .has-muted-background-color):not(.has-text-color) { color: var(--wp--preset--color--base); }"
 	}
 }
